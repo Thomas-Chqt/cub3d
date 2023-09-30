@@ -4,6 +4,7 @@
 		"includes"
 	],
 	"files.exclude": {
+		"*.cub": true,
 		"cub3d": true,
 		"cub3d_debug": true
 	}
