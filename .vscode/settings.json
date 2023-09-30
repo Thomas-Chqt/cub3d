@@ -1,0 +1,10 @@
+{
+	"C_Cpp.default.includePath": [
+		"/Users/tchoquet/Documents/Libraries/include",
+		"includes"
+	],
+	"files.exclude": {
+		"cub3d": true,
+		"cub3d_debug": true
+	}
+}
