@@ -6,33 +6,31 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 16:15:39 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/09/30 16:32:01 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/02 21:30:01 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static char	*cub_error_buff(void)
+t_file_errdesc	*cub_file_err(void)
 {
-	static char	error_buffer[ERROR_MSG_MAX_LEN] = {};
-	
-	return (error_buffer);
+	static t_file_errdesc	file_error = {};
+
+	return (&file_error);
 }
 
-void	*cub_seterr(char *msg)
+void	cub_perror(char *msg)
 {
-	ft_strlcpy(cub_error_buff(), msg, ERROR_MSG_MAX_LEN);
-	return (NULL);
+	ft_putstr_fd("Error\ncub3d: ", STDERR_FILENO);
+	perror(msg);
 }
 
-void	*cub_seterr_code(int code)
+void	cub_perror_file(char *msg)
 {
-	if (code == MALLOC_ERROR)
-		return (cub_seterr("Malloc error"));
-	return (cub_seterr(strerror(code)));
-}
-
-void	*cub_strerr(void)
-{
-	return (cub_error_buff());
+	ft_putstr_fd("Error\ncub3d: ", STDERR_FILENO);
+	ft_putstr_fd(cub_file_err()->file, STDERR_FILENO);
+	ft_putstr_fd(": line ", STDERR_FILENO);
+	ft_putnbr_fd(cub_file_err()->line, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putendl_fd(msg, STDERR_FILENO);
 }

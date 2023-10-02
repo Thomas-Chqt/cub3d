@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/09/30 16:44:42 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/02 21:56:37 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,47 +28,66 @@
 
 # endif // DEBUG
 
-# define WIDTH 1280
-# define HEIGHT 720
+# define MALLOC_ERROR			110
+# define PARSING_ERROR			111
+# define MULTIPLE_DEF_ERROR		112
+# define UNEXPECTED_EOF_ERROR	113
+# define FATAL_PARSING_ERROR	114
 
-# define ERROR_MSG_MAX_LEN 100
-
-# define MALLOC_ERROR 110
+# define WIDTH	1280
+# define HEIGHT	720
 
 typedef enum e_map_tile
 {
-	badd = 0,
-	wall = 1,
-	none = 2,
+	out = 1,
+	empty = 2,
 	p_no = 3,
 	p_so = 4,
 	p_ea = 5,
-	p_we = 6
+	p_we = 6,
+	wall = 7
+}	t_tile;
 
-} t_tile;
-
-typedef struct s_map
+typedef struct s_cubfile
 {
-	t_tile	**tiles;
-	t_wh	size;
-	
-}	t_map;
+	char		*no_tex;
+	char		*so_tex;
+	char		*we_tex;
+	char		*ea_tex;
+	t_uint32	f_col;
+	t_uint32	c_col;
+
+	char		parsed_flags;
+
+	t_tile		**tiles;
+	t_uint64	width;
+	t_uint64	height;
+
+}	t_cubfile;
 
 typedef struct s_setup_data
 {
 	t_win		*window;
 	t_2d_ctx	*window_ctx;
-	t_map		map;
-	
+	t_cubfile	cub;
+
 }	t_stpdata;
 
-void	*cub_seterr(char *msg);
-void	*cub_seterr_code(int code);
-void	*cub_strerr(void);
+typedef struct s_file_error_description
+{
+	char	*file;
+	int		line;
 
-t_map	load_map(char *file);
+}	t_file_errdesc;
 
-void	main_loop(t_stpdata *stpdata);
-void	clean_stpdata(t_stpdata *stpdata);
+void			main_loop(t_stpdata *stpdata);
+void			clean_stpdata(t_stpdata *stpdata);
+
+t_file_errdesc	*cub_file_err(void);
+void			cub_perror(char *msg);
+void			cub_perror_file(char *msg);
+
+t_cubfile		load_cubfile(char *file);
+void			free_cubfile(t_cubfile cub);
 
 #endif // CUB3D_H
