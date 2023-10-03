@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:30:24 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/02 21:38:46 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:37:46 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,22 @@ int	main(void)
 void	main_loop(t_stpdata *stpdata)
 {
 	fill_2d_ctx(stpdata->window_ctx, 0x00A0A0A0);
+
+	t_pos	pos = {1, 1};
+
+	for (size_t y = 0; y < stpdata->cub.height; y++)
+	{
+		for (size_t x = 0; x < stpdata->cub.width; x++)
+		{
+			if (*get_tile(stpdata->cub, (t_pos){x, y}) == wall)
+				put_rect(stpdata->window_ctx, (t_wh){30, 30}, pos, BLACK);
+			else if (*get_tile(stpdata->cub, (t_pos){x, y}) != out)
+				put_rect(stpdata->window_ctx, (t_wh){30, 30}, pos, WHITE);
+			pos.x += 31;
+		}
+		pos.x = 1;
+		pos.y += 31;
+	}
 }
 
 void	clean_stpdata(t_stpdata *stpdata)

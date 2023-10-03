@@ -6,14 +6,11 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 15:55:31 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/02 21:58:01 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:00:34 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-static int	parse_data(int fd, t_cubfile *cub);
-static int	parse_next_data(int fd, t_cubfile *cub);
 
 t_cubfile	load_cubfile(char *file)
 {
@@ -30,7 +27,7 @@ t_cubfile	load_cubfile(char *file)
 	if (parse_map(fd, &cub) != 0)
 		return (close(fd), free_cubfile(cub), (t_cubfile){});
 	close(fd);
-	if (check_map(cub) != 0)
+	if (check_map(&cub) != 0)
 		return (free_cubfile(cub), (t_cubfile){});
 	return (cub);
 }
@@ -43,12 +40,10 @@ void	free_cubfile(t_cubfile cub)
 	free(cub.so_tex);
 	free(cub.we_tex);
 	free(cub.ea_tex);
-	if (cub.height > 0)
-	{
-		i = 0;
-		while (i < cub.height)
-			free(cub.tiles[i]);
-		free(cub.tiles);
-	}
+	free(cub.tiles);
 }
 
+t_tile	*get_tile(t_cubfile cub, t_pos pos)
+{
+	return (cub.tiles + (cub.width * pos.y + pos.x));
+}

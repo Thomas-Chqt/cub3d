@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/02 21:56:37 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/03 18:04:40 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@
 # include <DD_Graphics.h>
 
 # ifdef DEBUG
-
 #  include <memory_leak_detector.h>
-
 # endif // DEBUG
 
 # define MALLOC_ERROR			110
@@ -33,19 +31,20 @@
 # define MULTIPLE_DEF_ERROR		112
 # define UNEXPECTED_EOF_ERROR	113
 # define FATAL_PARSING_ERROR	114
+# define WRONG_CHARACTER		115
 
 # define WIDTH	1280
 # define HEIGHT	720
 
 typedef enum e_map_tile
 {
-	out = 1,
-	empty = 2,
-	p_no = 3,
-	p_so = 4,
-	p_ea = 5,
-	p_we = 6,
-	wall = 7
+	out =	0,
+	wall =	1,
+	empty =	2,
+	p_no =	3,
+	p_so =	4,
+	p_ea =	4,
+	p_we =	6
 }	t_tile;
 
 typedef struct s_cubfile
@@ -59,9 +58,12 @@ typedef struct s_cubfile
 
 	char		parsed_flags;
 
-	t_tile		**tiles;
-	t_uint64	width;
-	t_uint64	height;
+	t_tile		*tiles;
+	int			width;
+	int			height;
+
+	t_pos		p_pos;
+	t_tile		p_dir;
 
 }	t_cubfile;
 
@@ -89,5 +91,6 @@ void			cub_perror_file(char *msg);
 
 t_cubfile		load_cubfile(char *file);
 void			free_cubfile(t_cubfile cub);
+t_tile			*get_tile(t_cubfile cub, t_pos pos);
 
 #endif // CUB3D_H
