@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 18:02:40 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/04 18:36:22 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/05 14:21:01 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,10 @@ void	normalize_line(char **line_ptr);
 t_bool	is_color_comp_sep(char c);
 
 int		parse_cubf_map(int fd, t_cubf *cubf);
+
+void	skip_empty_lines(int fd, char **line);
+int		normalize_map_line(char **line_ptr);
+t_tile	**calloc_tiles(t_whi size);
+t_tile	to_tile(char c);
 
 #endif // PARSING_H

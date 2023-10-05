@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 16:15:39 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/04 18:59:17 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:56:13 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ static void	cub_pferror(void)
 		return ((void)ft_putendl_fd("color redefinition", STDERR_FILENO));
 	if (g_file_err()->code == UNEP_EOF_ERROR)
 		return ((void)ft_putendl_fd("unexpected EOF", STDERR_FILENO));
+	if (g_file_err()->code == WRONG_CHAR_ERROR)
+		return ((void)ft_putendl_fd("bad character", STDERR_FILENO));
+	if (g_file_err()->code == BIG_MAP_ERROR)
+		return ((void)ft_putendl_fd("map too big", STDERR_FILENO));
+	if (g_file_err()->code == LONG_LINE_ERROR)
+		return ((void)ft_putendl_fd("line too long", STDERR_FILENO));
 }
 
 static void	cub_pmerror(void)
@@ -73,8 +79,6 @@ static void	cub_pmerror(void)
 	ft_putstr_fd(", column ", STDERR_FILENO);
 	ft_putnbr_fd(g_map_err()->collum, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
-	if (g_map_err()->code == WRONG_CHAR_ERROR)
-		return ((void)ft_putendl_fd("bad character", STDERR_FILENO));
 	if (g_map_err()->code == NOT_CLOSED_ERROR)
 		return ((void)ft_putendl_fd("map not closed", STDERR_FILENO));
 }

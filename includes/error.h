@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 20:31:26 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/04 18:09:46 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/05 13:56:01 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@
 # define MULTI_TEXT_ERROR	151
 # define MULTI_COL_ERROR	156
 # define UNEP_EOF_ERROR		157
+# define WRONG_CHAR_ERROR	158
+# define BIG_MAP_ERROR		159
+# define LONG_LINE_ERROR	160
 
-# define WRONG_CHAR_ERROR	200
-# define NOT_CLOSED_ERROR	201
+# define NOT_CLOSED_ERROR	200
 
 typedef struct s_cub3d_file_error
 {

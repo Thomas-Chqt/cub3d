@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:30:24 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/04 18:52:19 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/05 14:35:50 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ __attribute__((destructor))
 static void	destructor(void)
 {
 	print_report();
-	// system("leaks -q cub3d_debug");
+	system("leaks -q cub3d_debug");
 }
 
 #endif // DEBUG
@@ -33,7 +33,6 @@ int	main(void)
 	setup_data = (t_stpdata){};
 	if (load_cubfile("test.cub", &setup_data.cub) != 0)
 		return (cub_perror("test.cub"), 1);
-	return (clean_stpdata(&setup_data), 0);
 	window_size = (t_wh){WIDTH, HEIGHT};
 	setup_data.window = new_window("cub3d", window_size);
 	window_buff = get_pixel_buffer(setup_data.window);
@@ -54,6 +53,10 @@ void	main_loop(t_stpdata *stpdata)
 	{
 		for (size_t x = 0; x < stpdata->cub.size.w; x++)
 		{
+			if (stpdata->cub.tiles[y][x] > wal)
+				put_rect(stpdata->window_ctx, (t_wh){30, 30}, pos, WHITE);
+			else if (stpdata->cub.tiles[y][x] == wal)
+				put_rect(stpdata->window_ctx, (t_wh){30, 30}, pos, BLACK);
 			pos.x += 31;
 		}
 		pos.x = 1;

@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 15:55:31 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/04 18:36:52 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/05 14:46:10 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	load_cubfile(char *file, t_cubf *cubf)
 	if (fd < 0)
 		return (-1);
 	g_file_err()->file = file;
+	g_file_err()->line = 0;
 	if (parse_cubf_data(fd, cubf) != 0)
 		return (close(fd), -1);
 	if (parse_cubf_map(fd, cubf) != 0)
