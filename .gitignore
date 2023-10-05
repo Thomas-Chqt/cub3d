@@ -1,5 +1,7 @@
 *.o
 *.a
+*.pdf
+*.cub
 cub3d
 cub3d_debug
 

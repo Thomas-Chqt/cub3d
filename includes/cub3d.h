@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/05 14:57:52 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/05 21:05:37 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 # include <libft.h>
 # include <simpleWindow.h>
-# include <DD_Graphics.h>
 
 # ifdef DEBUG
 #  include <memory_leak_detector.h>
@@ -27,18 +26,6 @@
 
 # define WIDTH	1280
 # define HEIGHT	720
-
-# ifndef WHI_TYPE
-#  define WHI_TYPE
-
-typedef struct s_width_height_int
-{
-	int	w;
-	int	h;
-
-}	t_whi;
-
-# endif // WHI_TYPE
 
 typedef enum e_map_tile
 {
@@ -61,7 +48,7 @@ typedef struct s_cub_file
 	t_uint32	c_col;
 
 	t_tile		**tiles;
-	t_whi		size;
+	t_wh		size;
 	t_pos		p_start;
 	t_tile		p_start_rot;
 
@@ -69,9 +56,8 @@ typedef struct s_cub_file
 
 typedef struct s_setup_data
 {
-	t_win		*window;
-	t_2d_ctx	*window_ctx;
-	t_cubf		cub;
+	t_cubf	cub;
+	t_win	*window;
 
 }	t_stpdata;
 
@@ -80,5 +66,7 @@ void	clean_stpdata(t_stpdata *stpdata);
 
 int		load_cubfile(char *file, t_cubf *cubf);
 void	free_cub_file(t_cubf *cubf);
+
+int		make_minimap(t_stpdata *stpdata);
 
 #endif // CUB3D_H

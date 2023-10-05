@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:51:40 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/05 16:38:54 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/05 20:22:52 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parsing.h"
 #include "error.h"
 
-t_bool	**calloc_visited(t_whi size)
+t_bool	**calloc_visited(t_wh size)
 {
 	t_bool	**res;
 	int		i;
@@ -38,7 +38,7 @@ t_bool	**calloc_visited(t_whi size)
 	return (NULL);
 }
 
-void	free_visited(t_bool	**visited, t_whi size)
+void	free_visited(t_bool	**visited, t_wh size)
 {
 	int	i;
 

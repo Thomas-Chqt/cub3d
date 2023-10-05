@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 15:55:31 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/05 14:54:12 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/05 21:02:46 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	load_cubfile(char *file, t_cubf *cubf)
 {
 	int	fd;
 
+	*cubf = (t_cubf){0};
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (-1);

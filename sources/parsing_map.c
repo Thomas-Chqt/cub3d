@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:24:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/05 14:42:14 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/05 20:22:49 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "parsing.h"
 #include "error.h"
 
-static int	analize_and_add(char *line, t_list **line_lst, t_whi *size);
+static int	analize_and_add(char *line, t_list **line_lst, t_wh *size);
 static int	convert_to_tiles(t_list **line_lst, t_cubf *cubf);
 
 int	parse_cubf_map(int fd, t_cubf *cubf)
@@ -38,7 +38,7 @@ int	parse_cubf_map(int fd, t_cubf *cubf)
 	return (0);
 }
 
-static int	analize_and_add(char *line, t_list **line_lst, t_whi *size)
+static int	analize_and_add(char *line, t_list **line_lst, t_wh *size)
 {
 	size_t	tmp_len;
 	t_list	*tmp;

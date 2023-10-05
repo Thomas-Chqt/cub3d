@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 13:18:26 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/05 16:38:57 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/05 20:22:42 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	normalize_map_line(char **line_ptr)
 	return (0);
 }
 
-t_tile	**calloc_tiles(t_whi size)
+t_tile	**calloc_tiles(t_wh size)
 {
 	t_tile	**res;
 	int		i;
