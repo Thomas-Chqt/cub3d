@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 20:31:26 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/05 13:56:01 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:13:16 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "cub3d.h"
 
 # define MALLOC_ERROR		110
+# define NO_PLAYER_ERROR	111
 
 # define PARSING_ERROR		150
 # define MULTI_TEXT_ERROR	151
@@ -28,6 +29,7 @@
 # define LONG_LINE_ERROR	160
 
 # define NOT_CLOSED_ERROR	200
+# define DOUBLE_P_ERROR		201
 
 typedef struct s_cub3d_file_error
 {

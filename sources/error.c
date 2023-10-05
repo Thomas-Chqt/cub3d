@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 16:15:39 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/05 13:56:13 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/05 15:14:21 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	cub_perror(char *str)
 		return (cub_pmerror());
 	if (*g_error() == MALLOC_ERROR)
 		return ((void)ft_putendl_fd("malloc error", STDERR_FILENO));
+	if (*g_error() == NO_PLAYER_ERROR)
+		return ((void)ft_putendl_fd("map: no player start", STDERR_FILENO));
 	perror(str);
 }
 
@@ -81,4 +83,6 @@ static void	cub_pmerror(void)
 	ft_putstr_fd(": ", STDERR_FILENO);
 	if (g_map_err()->code == NOT_CLOSED_ERROR)
 		return ((void)ft_putendl_fd("map not closed", STDERR_FILENO));
+	if (g_map_err()->code == DOUBLE_P_ERROR)
+		return ((void)ft_putendl_fd("multiple player start", STDERR_FILENO));
 }

@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/04 18:36:33 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/05 14:57:52 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_cub_file
 	t_tile		**tiles;
 	t_whi		size;
 	t_pos		p_start;
+	t_tile		p_start_rot;
 
 }	t_cubf;
 

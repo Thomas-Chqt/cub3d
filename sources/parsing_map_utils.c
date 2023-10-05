@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 13:18:26 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/05 14:32:54 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:38:57 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_tile	**calloc_tiles(t_whi size)
 	{
 		res[i] = ft_calloc(size.w, sizeof(t_tile *));
 		if (res[i] == NULL)
-			break;
+			break ;
 		i++;
 	}
 	if (i == size.h)
