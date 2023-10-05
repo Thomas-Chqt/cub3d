@@ -6,11 +6,12 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:30:24 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/03 17:37:46 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:52:19 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "error.h"
 
 #ifdef DEBUG
 
@@ -18,7 +19,7 @@ __attribute__((destructor))
 static void	destructor(void)
 {
 	print_report();
-	system("leaks -q cub3d_debug");
+	// system("leaks -q cub3d_debug");
 }
 
 #endif // DEBUG
@@ -30,9 +31,9 @@ int	main(void)
 	void		*window_buff;
 
 	setup_data = (t_stpdata){};
-	setup_data.cub = load_cubfile("test.cub");
-	if (setup_data.cub.tiles == NULL)
-		return (clean_stpdata(&setup_data), 1);
+	if (load_cubfile("test.cub", &setup_data.cub) != 0)
+		return (cub_perror("test.cub"), 1);
+	return (clean_stpdata(&setup_data), 0);
 	window_size = (t_wh){WIDTH, HEIGHT};
 	setup_data.window = new_window("cub3d", window_size);
 	window_buff = get_pixel_buffer(setup_data.window);
@@ -49,14 +50,10 @@ void	main_loop(t_stpdata *stpdata)
 
 	t_pos	pos = {1, 1};
 
-	for (size_t y = 0; y < stpdata->cub.height; y++)
+	for (size_t y = 0; y < stpdata->cub.size.h; y++)
 	{
-		for (size_t x = 0; x < stpdata->cub.width; x++)
+		for (size_t x = 0; x < stpdata->cub.size.w; x++)
 		{
-			if (*get_tile(stpdata->cub, (t_pos){x, y}) == wall)
-				put_rect(stpdata->window_ctx, (t_wh){30, 30}, pos, BLACK);
-			else if (*get_tile(stpdata->cub, (t_pos){x, y}) != out)
-				put_rect(stpdata->window_ctx, (t_wh){30, 30}, pos, WHITE);
 			pos.x += 31;
 		}
 		pos.x = 1;
@@ -67,5 +64,5 @@ void	main_loop(t_stpdata *stpdata)
 void	clean_stpdata(t_stpdata *stpdata)
 {
 	del_2d_ctx(stpdata->window_ctx);
-	free_cubfile(stpdata->cub);
+	free_cub_file(&stpdata->cub);
 }

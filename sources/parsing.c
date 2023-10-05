@@ -6,44 +6,40 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 15:55:31 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/03 18:00:34 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:36:52 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
 #include "parsing.h"
+#include "error.h"
 
-t_cubfile	load_cubfile(char *file)
+int	load_cubfile(char *file, t_cubf *cubf)
 {
-	t_cubfile	cub;
-	int			fd;
+	int	fd;
 
-	cub = (t_cubfile){};
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (cub_perror(file), (t_cubfile){});
-	cub_file_err()->file = file;
-	if (parse_data(fd, &cub) != 0)
-		return (close(fd), free_cubfile(cub), (t_cubfile){});
-	if (parse_map(fd, &cub) != 0)
-		return (close(fd), free_cubfile(cub), (t_cubfile){});
+		return (-1);
+	g_file_err()->file = file;
+	if (parse_cubf_data(fd, cubf) != 0)
+		return (close(fd), -1);
+	if (parse_cubf_map(fd, cubf) != 0)
+		return (close(fd), free_cub_file(cubf), -1);
 	close(fd);
-	if (check_map(&cub) != 0)
-		return (free_cubfile(cub), (t_cubfile){});
-	return (cub);
+	return (0);
 }
 
-void	free_cubfile(t_cubfile cub)
+void	free_cub_file(t_cubf *cubf)
 {
-	t_uint64	i;
+	int	i;
 
-	free(cub.no_tex);
-	free(cub.so_tex);
-	free(cub.we_tex);
-	free(cub.ea_tex);
-	free(cub.tiles);
-}
-
-t_tile	*get_tile(t_cubfile cub, t_pos pos)
-{
-	return (cub.tiles + (cub.width * pos.y + pos.x));
+	free(cubf->no_tex);
+	free(cubf->so_tex);
+	free(cubf->we_tex);
+	free(cubf->ea_tex);
+	i = 0;
+	while (cubf->tiles != NULL && i < cubf->size.h)
+		free(cubf->tiles[i++]);
+	free(cubf->tiles);
 }
