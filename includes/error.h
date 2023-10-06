@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 20:31:26 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/05 15:13:16 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:24:55 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ int			*g_error(void);
 
 void		set_error(int code);
 void		cub_perror(char *str);
+void		cub_perror_set(int code);
 
 #endif // ERROR_H

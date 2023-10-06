@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/06 13:49:00 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:55:18 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,7 @@
 
 # define WIDTH	1280
 # define HEIGHT	720
-
-typedef struct s_position_float
-{
-	float	x;
-	float	y;
-
-}	t_posf;
+# define FOV	90
 
 typedef enum e_map_tile
 {
@@ -59,25 +53,51 @@ typedef struct s_cub_file
 
 }	t_cubf;
 
+typedef struct s_minimap
+{
+	t_ctx	*ctx;
+	t_pos	pos;
+	t_wh	ti_size;
+	t_ctx	*p_ctx;
+	float	p_size;
+	t_ctx	*ray_ctx;
+
+}	t_minimap;
+
+typedef struct s_player
+{
+	t_vect2d	pos;
+	t_vect2d	dir;
+	t_vect2d	plane;
+
+}	t_player;
+
+
 typedef struct s_setup_data
 {
-	t_cubf	cub;
 	t_win	*window;
-	t_ctx	*minimap_ctx;
 
-	t_pos	minimap_pos;
-	t_wh	minimap_size;
-	t_posf	p_pos;
+	t_cubf		cubf;
+	t_minimap	mmap;
+	t_player	play;
 
 }	t_stpdata;
 
-void	setup(t_stpdata *stpdata, char *argv[]);
-void	loop(t_stpdata *stpdata);
-void	clean(void *stpdata);
+void		setup(t_stpdata *stpdata, char *argv[]);
+void		loop(t_stpdata *stpdata);
+void		clean(void *stpdata);
 
-int		load_cubfile(char *file, t_cubf *cubf);
-void	free_cub_file(t_cubf *cubf);
+int			load_cubfile(char *file, t_cubf *cubf);
+void		free_cub_file(t_cubf *cubf);
 
-int		make_minimap(t_stpdata *stpdata, t_wh size);
+int			make_minimap(t_minimap *mmap, t_cubf *cubf, t_wh size, t_pos pos);
+void		free_minimap(t_minimap	*mmap);
+
+void		init_player(t_stpdata *stpdata);
+void		set_ppos(t_stpdata *stpdata, t_vect2d pos);
+void		pmov_x(t_stpdata *stpdata, float dist);
+void		pmov_y(t_stpdata *stpdata, float dist);
+
+void		render_minimap(t_stpdata *stpdata);
 
 #endif // CUB3D_H

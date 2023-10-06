@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 16:15:39 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/05 15:14:21 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:25:20 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ void	cub_perror(char *str)
 	if (*g_error() == NO_PLAYER_ERROR)
 		return ((void)ft_putendl_fd("map: no player start", STDERR_FILENO));
 	perror(str);
+}
+
+void	cub_perror_set(int code)
+{
+	set_error(code);
+	cub_perror("");
 }
 
 static void	cub_pferror(void)
