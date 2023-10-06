@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 21:44:11 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/04 23:36:47 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/06 12:20:35 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	parse_cubf_data(int fd, t_cubf *cubf)
 {
 	char	*line;
 
-	cubf->f_col = NONE;
-	cubf->c_col = NONE;
+	cubf->f_col = TRANSP;
+	cubf->c_col = TRANSP;
 	while (is_data_all_parsed(cubf) == false)
 	{
 		g_file_err()->line++;
@@ -86,7 +86,7 @@ static int	parse_color(char *line, t_uint32 *dest)
 		return (set_error(MALLOC_ERROR), -1);
 	if (arrstr_len(splited_str) != 3)
 		return (free_splited_str(splited_str), set_error(PARSING_ERROR), -1);
-	if (*dest != NONE)
+	if (*dest != TRANSP)
 		return (free_splited_str(splited_str), set_error(MULTI_COL_ERROR), -1);
 	r = atoi_long(splited_str[0]);
 	g = atoi_long(splited_str[1]);

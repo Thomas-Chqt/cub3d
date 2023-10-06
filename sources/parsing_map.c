@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:24:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/05 20:22:49 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/06 13:51:35 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	analize_and_add(char *line, t_list **line_lst, t_wh *size)
 		return (set_error(BIG_MAP_ERROR), -1);
 	size->h++;
 	tmp_len = ft_strlen(line);
-	if (size->w < tmp_len)
+	if ((size_t)size->w < tmp_len)
 		size->w = tmp_len;
 	tmp = ft_lstnew(line);
 	if (tmp == NULL)

@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 13:18:26 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/05 20:22:42 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/06 13:51:47 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	normalize_map_line(char **line_ptr)
 {
 	int	i;
 
+	i = 0;
 	while ((*line_ptr)[i] != '\0' && (*line_ptr)[i] != '\n')
 	{
 		if (ft_strchr(" 01NSEW", (*line_ptr)[i]) == NULL)

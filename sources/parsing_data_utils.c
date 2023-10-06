@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 16:18:33 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/04 18:43:58 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/06 12:20:35 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ t_bool	is_data_all_parsed(t_cubf *cubf)
 		return (false);
 	if (cubf->ea_tex == NULL)
 		return (false);
-	if (cubf->f_col == NONE)
+	if (cubf->f_col == TRANSP)
 		return (false);
-	if (cubf->c_col == NONE)
+	if (cubf->c_col == TRANSP)
 		return (false);
 	return (true);
 }
