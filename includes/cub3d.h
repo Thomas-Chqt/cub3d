@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/06 19:55:18 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/08 17:52:03 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include <libft.h>
-# include <simpleWindow.h>
+# include <Graphics.h>
 
 # include "external_functions.h"
 
@@ -47,8 +47,8 @@ typedef struct s_cub_file
 	t_uint32	c_col;
 
 	t_tile		**tiles;
-	t_wh		size;
-	t_pos		p_start;
+	t_vec2i		size;
+	t_vec2i		p_start;
 	t_tile		p_start_rot;
 
 }	t_cubf;
@@ -56,48 +56,46 @@ typedef struct s_cub_file
 typedef struct s_minimap
 {
 	t_ctx	*ctx;
-	t_pos	pos;
-	t_wh	ti_size;
-	t_ctx	*p_ctx;
-	float	p_size;
-	t_ctx	*ray_ctx;
+	t_vec2i	pos;
+	t_vec2i	px_psize;
 
-}	t_minimap;
+}	t_mmap;
 
 typedef struct s_player
 {
-	t_vect2d	pos;
-	t_vect2d	dir;
-	t_vect2d	plane;
+	t_vec2f	pos;
+	t_vec2f	dir;
+	t_vec2f	plane;
 
 }	t_player;
 
-
-typedef struct s_setup_data
+typedef struct s_cub3d
 {
-	t_win	*window;
-
 	t_cubf		cubf;
-	t_minimap	mmap;
-	t_player	play;
+	t_mmap		mmap;
+	t_player	player;
 
-}	t_stpdata;
+}	t_cub3d;
 
-void		setup(t_stpdata *stpdata, char *argv[]);
-void		loop(t_stpdata *stpdata);
-void		clean(void *stpdata);
+t_cub3d	*cub3d(void);
+int		setup(char *cubf_path);
+void	loop(void *none);
+void	clean(void *none);
 
-int			load_cubfile(char *file, t_cubf *cubf);
-void		free_cub_file(t_cubf *cubf);
+int		load_cubfile(char *file, t_cubf *cubf);
+void	free_cub_file(t_cubf *cubf);
 
-int			make_minimap(t_minimap *mmap, t_cubf *cubf, t_wh size, t_pos pos);
-void		free_minimap(t_minimap	*mmap);
+int		make_minimap(t_vec2i size, t_vec2i pos);
+t_vec2i	tile_size_px(void);
+void	free_minimap(t_mmap *mmap);
 
-void		init_player(t_stpdata *stpdata);
-void		set_ppos(t_stpdata *stpdata, t_vect2d pos);
-void		pmov_x(t_stpdata *stpdata, float dist);
-void		pmov_y(t_stpdata *stpdata, float dist);
+void	init_player(void);
+void	set_ppos(t_vec2f pos);
+void	pmov_x(float dist);
+void	pmov_y(float dist);
+void	pmov_f(float dist);
+void	protate(float rad);
 
-void		render_minimap(t_stpdata *stpdata);
+void	render_minimap(void);
 
 #endif // CUB3D_H

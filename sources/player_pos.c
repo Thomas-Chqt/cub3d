@@ -6,57 +6,50 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:28:10 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/06 19:28:02 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/08 17:56:03 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_bool	is_in_wall(t_stpdata *stpdata, t_vect2d p_pos);
-
-void	set_ppos(t_stpdata *stpdata, t_vect2d pos)
+void	set_ppos(t_vec2f pos)
 {
-	if (is_in_wall(stpdata, pos))
-		return ;
-	stpdata->play.pos = pos;
+	cub3d()->player.pos = pos;
 }
 
-void	pmov_x(t_stpdata *stpdata, float dist)
+void	pmov_x(float dist)
 {
-	set_ppos(stpdata, (t_vect2d){
-		stpdata->play.pos.x + dist,
-		stpdata->play.pos.y
+	set_ppos((t_vec2f){
+		cub3d()->player.pos.x + dist,
+		cub3d()->player.pos.y
 	});
 }
 
-void	pmov_y(t_stpdata *stpdata, float dist)
+void	pmov_y(float dist)
 {
-	set_ppos(stpdata, (t_vect2d){
-		stpdata->play.pos.x,
-		stpdata->play.pos.y + dist
+	set_ppos((t_vec2f){
+		cub3d()->player.pos.x,
+		cub3d()->player.pos.y + dist
 	});
 }
 
-static t_bool	is_in_wall(t_stpdata *stpdata, t_vect2d p_pos)
+void	pmov_f(float dist)
 {
-	float	p_size;
-	t_vect2d	t_l;
-	t_vect2d	t_r;
-	t_vect2d	b_l;
-	t_vect2d	b_r;
+	set_ppos(
+		add_vf2vf2(
+			cub3d()->player.pos,
+			mul_vf2f(cub3d()->player.dir, dist)
+			)
+		);
+}
 
-	p_size = stpdata->mmap.p_size;
-	t_l = (t_vect2d){p_pos.x - (p_size / 2), p_pos.y - (p_size / 2)};
-	t_r = (t_vect2d){p_pos.x + (p_size / 2), p_pos.y - (p_size / 2)};
-	b_l = (t_vect2d){p_pos.x - (p_size / 2), p_pos.y + (p_size / 2)};
-	b_r = (t_vect2d){p_pos.x + (p_size / 2), p_pos.y + (p_size / 2)};
-	if (stpdata->cubf.tiles[(int)(t_l.y)][(int)t_l.x] < ins)
-		return (true);
-	if (stpdata->cubf.tiles[(int)t_r.y][(int)t_r.x] < ins)
-		return (true);
-	if (stpdata->cubf.tiles[(int)b_l.y][(int)b_l.x] < ins)
-		return (true);
-	if (stpdata->cubf.tiles[(int)b_r.y][(int)b_r.x] < ins)
-		return (true);
-	return (false);
+void	protate(float rad)
+{
+	t_vec2f	*dir;
+	t_vec2f	*plane;
+
+	dir = &(cub3d()->player.dir);
+	plane = &(cub3d()->player.plane);
+	*dir = rot_vf2d(cub3d()->player.dir, rad);
+	*plane = rot_vf2d(cub3d()->player.plane, rad);
 }

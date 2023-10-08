@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 20:31:26 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/06 14:24:55 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/08 14:21:06 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # define MALLOC_ERROR		110
 # define NO_PLAYER_ERROR	111
+# define BAD_ARGS_ERROR		112
 
 # define PARSING_ERROR		150
 # define MULTI_TEXT_ERROR	151

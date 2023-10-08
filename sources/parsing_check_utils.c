@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:51:40 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/05 20:22:52 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/08 14:30:34 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 #include "parsing.h"
 #include "error.h"
 
-t_bool	**calloc_visited(t_wh size)
+t_bool	**calloc_visited(t_vec2i size)
 {
 	t_bool	**res;
 	int		i;
 
 	i = 0;
-	res = malloc(size.h * sizeof(t_bool *));
+	res = malloc(size.y * sizeof(t_bool *));
 	if (res == NULL)
 		return (NULL);
-	while (i < size.h)
+	while (i < size.y)
 	{
-		res[i] = ft_calloc(size.w, sizeof(t_bool *));
+		res[i] = ft_calloc(size.x, sizeof(t_bool *));
 		if (res[i] == NULL)
 			break ;
 		i++;
 	}
-	if (i == size.h)
+	if (i == size.y)
 		return (res);
 	while (i >= 0)
 		free(res[i--]);
@@ -38,12 +38,12 @@ t_bool	**calloc_visited(t_wh size)
 	return (NULL);
 }
 
-void	free_visited(t_bool	**visited, t_wh size)
+void	free_visited(t_bool	**visited, t_vec2i size)
 {
 	int	i;
 
 	i = 0;
-	while (visited != NULL && i < size.h)
+	while (visited != NULL && i < size.y)
 		free(visited[i++]);
 	free(visited);
 }

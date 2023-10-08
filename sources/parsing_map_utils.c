@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 13:18:26 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/06 13:51:47 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/08 14:31:11 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,23 @@ int	normalize_map_line(char **line_ptr)
 	return (0);
 }
 
-t_tile	**calloc_tiles(t_wh size)
+t_tile	**calloc_tiles(t_vec2i size)
 {
 	t_tile	**res;
 	int		i;
 
 	i = 0;
-	res = malloc(size.h * sizeof(t_tile *));
+	res = malloc(size.y * sizeof(t_tile *));
 	if (res == NULL)
 		return (NULL);
-	while (i < size.h)
+	while (i < size.y)
 	{
-		res[i] = ft_calloc(size.w, sizeof(t_tile *));
+		res[i] = ft_calloc(size.x, sizeof(t_tile *));
 		if (res[i] == NULL)
 			break ;
 		i++;
 	}
-	if (i == size.h)
+	if (i == size.y)
 		return (res);
 	while (i >= 0)
 		free(res[i--]);

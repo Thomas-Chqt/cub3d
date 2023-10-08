@@ -5,24 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/06 19:58:08 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/06 20:34:58 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/08 15:13:32 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/08 15:28:59 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "render.h"
 
-t_pos	to_screen_coord(t_vect2d vect, t_minimap *mmap)
+t_vec2i	mtos(t_vec2f vect)
 {
 	return (
-		topos(
-			addvect2dpos (
-				mulvect2dwh(
+		vf2tovi2(
+			add_vf2vi2 (
+				mul_vf2vi2(
 					vect,
-					mmap->ti_size
+					tile_size_px()
 				),
-				mmap->pos
+				cub3d()->mmap.pos
 			)
 		)
 	);

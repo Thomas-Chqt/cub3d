@@ -6,7 +6,7 @@
 #    By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/30 14:26:53 by tchoquet          #+#    #+#              #
-#    Updated: 2023/10/06 14:03:03 by tchoquet         ###   ########.fr        #
+#    Updated: 2023/10/08 14:31:44 by tchoquet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,10 +32,10 @@ endif
     CC			= cc
 ifeq (${TARGET_TYPE}, release)
     CFLAGS		= -Wall -Wextra -Werror
-    LDLIBS		= -l ft -l simpleWindow
+    LDLIBS		= -l ft -l Graphics
 else ifeq (${TARGET_TYPE}, debug)
     CFLAGS		= -g -D DEBUG
-    LDLIBS		= -l ft_debug -l simpleWindow_debug -l memory_leak_detector
+    LDLIBS		= -l ft_debug -l Graphics_debug -l memory_leak_detector
 else
     $(error Bad TARGET_TYPE)
 endif

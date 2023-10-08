@@ -6,71 +6,70 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 21:04:41 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/06 20:29:56 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/08 16:44:21 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "error.h"
 
-static t_wh	get_tile_size(t_cubf *cubf, t_wh to_fit);
-static void	draw_minimap(t_minimap *mmap, t_cubf *cubf);
+static void	draw_minimap(void);
 
-int	make_minimap(t_minimap *mmap, t_cubf *cubf, t_wh size, t_pos pos)
+int	make_minimap(t_vec2i size, t_vec2i pos)
 {
-	mmap->ctx = new_context(size);
-	if (mmap->ctx == NULL)
+	cub3d()->mmap.ctx = new_context(size);
+	if (cub3d()->mmap.ctx == NULL)
 		return (set_error(MALLOC_ERROR), -1);
-	mmap->pos = pos;
-	mmap->ti_size = get_tile_size(cubf, size);
-	draw_minimap(mmap, cubf);
-	mmap->p_ctx = new_context(divwhi(mmap->ti_size, 4));
-	if (mmap->p_ctx == NULL)
-		return (set_error(MALLOC_ERROR), free_minimap(mmap), -1);
-	fill_ctx(mmap->p_ctx, RED);
-	mmap->p_size = 1.0f / 4.0f;
-	mmap->ray_ctx = new_context(ctx_size(mmap->ctx));
-	if (mmap->ray_ctx == NULL)
-		return (set_error(MALLOC_ERROR), free_minimap(mmap), -1);
+	clear_ctx(cub3d()->mmap.ctx);
+	cub3d()->mmap.pos = pos;
+	draw_minimap();
+	cub3d()->mmap.px_psize = (t_vec2i){
+		tile_size_px().x / 6,
+		tile_size_px().y / 6
+	};
 	return (0);
 }
 
-void	free_minimap(t_minimap	*mmap)
+t_vec2i	tile_size_px(void)
 {
-	delete_ctx(mmap->ctx);
-	delete_ctx(mmap->p_ctx);
-	delete_ctx(mmap->ray_ctx);
+	static t_vec2i	tile_size = {-1, -1};
+	t_vec2f			ratio;
+
+	if (tile_size.x == -1 && tile_size.y == -1)
+	{
+		ratio.x = (float)ctx_size(cub3d()->mmap.ctx).x
+			/ (float)cub3d()->cubf.size.x;
+		ratio.y = (float)ctx_size(cub3d()->mmap.ctx).y
+			/ (float)cub3d()->cubf.size.y;
+		if (ratio.x < ratio.y)
+			tile_size = (t_vec2i){(int)ratio.x, (int)ratio.x};
+		else
+			tile_size = (t_vec2i){(int)ratio.y, (int)ratio.y};
+	}
+	return (tile_size);
 }
 
-static t_wh	get_tile_size(t_cubf *cubf, t_wh to_fit)
+void	free_minimap(t_mmap *mmap)
 {
-	float	r_w;
-	float	r_h;
-
-	r_w = (float)to_fit.w / (float)cubf->size.w;
-	r_h = (float)to_fit.h / (float)cubf->size.h;
-	if (r_w < r_h)
-		return ((t_wh){(int)r_w, (int)r_w});
-	else
-		return ((t_wh){(int)r_h, (int)r_h});
+	free_context(mmap->ctx);
 }
 
-static void	draw_minimap(t_minimap *mmap, t_cubf *cubf)
+static void	draw_minimap(void)
 {
-	t_pos	curr;
+	t_vec2i	curr;
 
 	curr.y = 0;
-	while (curr.y < cubf->size.h)
+	while (curr.y < cub3d()->cubf.size.y)
 	{
 		curr.x = 0;
-		while (curr.x < cubf->size.w)
+		while (curr.x < cub3d()->cubf.size.x)
 		{
-			if (cubf->tiles[curr.y][curr.x] > wal)
-				put_rect(mmap->ctx, mmap->ti_size,
-					mulposwh(curr, mmap->ti_size), WHITE);
-			else if (cubf->tiles[curr.y][curr.x] == wal)
-				put_rect(mmap->ctx, mmap->ti_size,
-					mulposwh(curr, mmap->ti_size), BLACK);
+			if (cub3d()->cubf.tiles[curr.y][curr.x] > wal)
+				draw_rect(cub3d()->mmap.ctx,
+					mul_vi2vi2(curr, tile_size_px()), tile_size_px(), WHITE);
+			else if (cub3d()->cubf.tiles[curr.y][curr.x] == wal)
+				draw_rect(cub3d()->mmap.ctx,
+					mul_vi2vi2(curr, tile_size_px()), tile_size_px(), BLACK);
 			curr.x++;
 		}
 		curr.y++;

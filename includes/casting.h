@@ -1,21 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.h                                           :+:      :+:    :+:   */
+/*   casting.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/06 18:16:41 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/08 16:08:26 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/08 17:09:01 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/08 17:09:24 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PLAYER_H
-# define PLAYER_H
-
-# include "cub3d.h"
-
-t_vec2f	tile_to_vect_dir(t_tile tile);
-t_vec2f	tile_to_vect_plane(t_tile tile);
-
-#endif // PLAYER_H

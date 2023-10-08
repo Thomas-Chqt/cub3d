@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 19:58:22 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/06 20:01:34 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/08 15:30:12 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "cub3d.h"
 
-t_pos	to_screen_coord(t_vect2d vect, t_minimap *mmap);
+t_vec2i	mtos(t_vec2f vect);
 
 #endif // RENDER_H

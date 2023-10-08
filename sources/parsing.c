@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 15:55:31 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/05 21:02:46 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/08 14:29:22 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	free_cub_file(t_cubf *cubf)
 	free(cubf->we_tex);
 	free(cubf->ea_tex);
 	i = 0;
-	while (cubf->tiles != NULL && i < cubf->size.h)
+	while (cubf->tiles != NULL && i < cubf->size.y)
 		free(cubf->tiles[i++]);
 	free(cubf->tiles);
 }
