@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 21:04:41 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/09 22:07:08 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:54:40 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_vec2i	tile_size_px(void)
 void	free_minimap(t_mmap *mmap)
 {
 	free_context(mmap->ctx);
+	free_context(mmap->p_ctx);
 }
 
 static void	draw_minimap(void)

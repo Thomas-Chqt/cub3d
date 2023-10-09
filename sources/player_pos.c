@@ -6,14 +6,17 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:28:10 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/08 17:56:03 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/09 23:29:53 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "player.h"
 
 void	set_ppos(t_vec2f pos)
 {
+	if (is_in_wall(pos))
+		return ;
 	cub3d()->player.pos = pos;
 }
 
@@ -35,12 +38,11 @@ void	pmov_y(float dist)
 
 void	pmov_f(float dist)
 {
-	set_ppos(
-		add_vf2vf2(
-			cub3d()->player.pos,
-			mul_vf2f(cub3d()->player.dir, dist)
-			)
-		);
+	t_vec2f	mov_vec;
+
+	mov_vec = mul_vf2f(cub3d()->player.dir, dist);
+	pmov_x(mov_vec.x);
+	pmov_y(mov_vec.y);
 }
 
 void	protate(float rad)
