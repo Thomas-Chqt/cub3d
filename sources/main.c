@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:30:24 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/08 17:59:39 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:23:10 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,13 @@ static void	destructor(void)
 
 #endif // DEBUG
 
-t_cub3d	*cub3d(void)
-{
-	static t_cub3d	global_data = {};
-
-	return (&global_data);
-}
-
 int	main(int argc, char *argv[])
 {
-	// if (argc != 2)
-	// 	return (cub_perror_set(BAD_ARGS_ERROR), 1);
-	if(create_window("cub3d", (t_vec2i){WIDTH, HEIGHT}) != 0)
+	if (argc != 2)
+		return (cub_perror_set(BAD_ARGS_ERROR), 1);
+	if (create_window("cub3d", (t_vec2i){WIDTH, HEIGHT}) != 0)
 		return (cub_perror_set(MALLOC_ERROR), 2);
-	if (setup("test.cub") != 0)
+	if (setup(argv[1]) != 0)
 	{
 		cub_perror(argv[1]);
 		delete_window(3);
@@ -49,12 +42,14 @@ int	main(int argc, char *argv[])
 int	setup(char *cubf_path)
 {
 	set_destructor(&clean, NULL);
-	set_back_color(0x00A0A0A0);
 	if (load_cubfile(cubf_path, &cub3d()->cubf) != 0)
 		return (-1);
-	if (make_minimap((t_vec2i){WIDTH, HEIGHT}, (t_vec2i){0, 0}) != 0)
+	if (make_minimap((t_vec2i){WIDTH / 4, HEIGHT / 4}, (t_vec2i){10, 10}) != 0)
 		return (-1);
 	init_player();
+	cub3d()->wall_ctx = new_context((t_vec2i){WIDTH, HEIGHT});
+	if (cub3d()->wall_ctx == NULL)
+		return (set_error(MALLOC_ERROR), -1);
 	return (0);
 }
 
@@ -74,6 +69,8 @@ void	loop(void *none)
 		if (key == RIGHT_KEY)
 			protate(0.1);
 	}
+	run_dda();
+	draw_walls();
 	render_minimap();
 }
 
@@ -82,4 +79,5 @@ void	clean(void *none)
 	(void)none;
 	free_cub_file(&cub3d()->cubf);
 	free_minimap(&cub3d()->mmap);
+	free_context(cub3d()->wall_ctx);
 }

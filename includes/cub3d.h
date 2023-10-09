@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/08 17:52:03 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:01:28 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_minimap
 {
 	t_ctx	*ctx;
 	t_vec2i	pos;
-	t_vec2i	px_psize;
+	t_ctx	*p_ctx;
 
 }	t_mmap;
 
@@ -69,11 +69,39 @@ typedef struct s_player
 
 }	t_player;
 
+typedef enum e_hit_side
+{
+	no,
+	so,
+	ea,
+	we
+}	t_side;
+
+typedef struct s_dda
+{
+	t_vec2f	start;
+	t_vec2f	dir;
+
+	t_vec2i	tile_step;
+	t_vec2i	curr_tile;
+
+	t_vec2f	length_step;
+	t_vec2f	curr_length;
+
+	float	dist;
+	t_side	hit_side;
+	float	wall_x;
+
+}	t_dda;
+
 typedef struct s_cub3d
 {
 	t_cubf		cubf;
 	t_mmap		mmap;
 	t_player	player;
+
+	t_dda		dda_res[WIDTH];
+	t_ctx		*wall_ctx;
 
 }	t_cub3d;
 
@@ -95,6 +123,10 @@ void	pmov_x(float dist);
 void	pmov_y(float dist);
 void	pmov_f(float dist);
 void	protate(float rad);
+
+void	run_dda(void);
+
+void	draw_walls(void);
 
 void	render_minimap(void);
 

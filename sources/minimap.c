@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 21:04:41 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/08 16:44:21 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/09 22:07:08 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,23 @@ static void	draw_minimap(void);
 
 int	make_minimap(t_vec2i size, t_vec2i pos)
 {
+	t_ctx	**pctx;
+
+	pctx = &cub3d()->mmap.p_ctx;
 	cub3d()->mmap.ctx = new_context(size);
 	if (cub3d()->mmap.ctx == NULL)
 		return (set_error(MALLOC_ERROR), -1);
 	clear_ctx(cub3d()->mmap.ctx);
 	cub3d()->mmap.pos = pos;
 	draw_minimap();
-	cub3d()->mmap.px_psize = (t_vec2i){
-		tile_size_px().x / 6,
-		tile_size_px().y / 6
-	};
+	*pctx = new_context((t_vec2i){
+			tile_size_px().x / 4,
+			tile_size_px().y / 4
+		});
+	if (*pctx == NULL)
+		return (free_minimap(&cub3d()->mmap),
+			set_error(MALLOC_ERROR), -1);
+	fill_ctx(*pctx, RED);
 	return (0);
 }
 
