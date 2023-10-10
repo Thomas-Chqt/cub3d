@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:30:24 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/09 22:23:10 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/09 23:12:59 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	destructor(void)
 #endif // DEBUG
 
 int	main(int argc, char *argv[])
-{
+{argc = 2; argv[1] = "test.cub";
 	if (argc != 2)
 		return (cub_perror_set(BAD_ARGS_ERROR), 1);
 	if (create_window("cub3d", (t_vec2i){WIDTH, HEIGHT}) != 0)
