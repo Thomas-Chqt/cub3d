@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:30:24 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/09 23:12:59 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/10 12:12:20 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	loop(void *none)
 	while ((poll_key(&key)))
 	{
 		if (key == UP_KEY)
-			pmov_f(0.1);
+			pmove_fb(0.1);
 		if (key == DOWN_KEY)
-			pmov_f(-0.1);
+			pmove_fb(-0.1);
 		if (key == LEFT_KEY)
 			protate(-0.1);
 		if (key == RIGHT_KEY)

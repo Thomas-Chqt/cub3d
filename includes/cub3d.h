@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/09 22:01:28 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/10 11:59:51 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,8 @@ t_vec2i	tile_size_px(void);
 void	free_minimap(t_mmap *mmap);
 
 void	init_player(void);
-void	set_ppos(t_vec2f pos);
-void	pmov_x(float dist);
-void	pmov_y(float dist);
-void	pmov_f(float dist);
+void	pmove_fb(float dist);
+void	pmove_lr(float dist);
 void	protate(float rad);
 
 void	run_dda(void);
