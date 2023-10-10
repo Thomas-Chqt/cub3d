@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/10 14:30:48 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:21:23 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,86 +26,37 @@
 # define HEIGHT	720
 # define FOV	90
 
-typedef enum e_map_tile
+typedef enum e_hit_side { no = -2, so = -1, ea = 1, we = 2 }	t_side;
+
+typedef struct s_dda_res
 {
-	out = 0,
-	wal = 1,
-	ins = 2,
-	pno = 3,
-	pso = 4,
-	pea = 4,
-	pwe = 6
-}	t_tile;
-
-typedef struct s_cub_file
-{
-	char		*no_tex;
-	t_ctx		*no_ctx;
-	char		*so_tex;
-	t_ctx		*so_ctx;
-	char		*we_tex;
-	t_ctx		*we_ctx;
-	char		*ea_tex;
-	t_ctx		*ea_ctx;
-	t_uint32	f_col;
-	t_uint32	c_col;
-
-	t_tile		**tiles;
-	t_vec2i		size;
-	t_vec2i		p_start;
-	t_tile		p_start_rot;
-
-}	t_cubf;
-
-typedef struct s_minimap
-{
-	t_ctx	*ctx;
-	t_vec2i	pos;
-	t_ctx	*p_ctx;
-
-}	t_mmap;
-
-typedef struct s_player
-{
-	t_vec2f	pos;
-	t_vec2f	dir;
-	t_vec2f	plane;
-
-}	t_player;
-
-typedef enum e_hit_side
-{
-	no,
-	so,
-	ea,
-	we
-}	t_side;
-
-typedef struct s_dda
-{
-	t_vec2f	start;
-	t_vec2f	dir;
-
-	t_vec2i	tile_step;
-	t_vec2i	curr_tile;
-
-	t_vec2f	length_step;
-	t_vec2f	curr_length;
-
 	float	dist;
 	t_side	hit_side;
 	float	wall_x;
 
-}	t_dda;
+}	t_dres;
 
 typedef struct s_cub3d
 {
-	t_cubf		cubf;
-	t_mmap		mmap;
-	t_player	player;
+	t_ctx		*no_tex;
+	t_ctx		*so_tex;
+	t_ctx		*we_tex;
+	t_ctx		*ea_tex;
 
-	t_dda		dda_res[WIDTH];
+	t_uint32	c_color;
+	t_uint32	f_color;
+
+	int			**map;
+
+	t_vec2f		p_pos;
+	t_vec2f		p_dir;
+	t_vec2f		p_plane;
+
+	t_ctx		*mmap_ctx;
+	t_ctx		*p_ctx;
+
 	t_ctx		*wall_ctx;
+	t_dres		dda_res[WIDTH];
 
 }	t_cub3d;
 
@@ -114,21 +65,6 @@ int		setup(char *cubf_path);
 void	loop(void *none);
 void	clean(void *none);
 
-int		load_cubfile(char *file, t_cubf *cubf);
-void	free_cub_file(t_cubf *cubf);
-
-int		make_minimap(t_vec2i size, t_vec2i pos);
-t_vec2i	tile_size_px(void);
-void	free_minimap(t_mmap *mmap);
-
-void	init_player(void);
-void	pmove_fb(float dist);
-void	pmove_lr(float dist);
-void	protate(float rad);
-
-void	run_dda(void);
-
-void	render_walls(void);
-void	render_minimap(void);
+int		load_cubfile(char *file);
 
 #endif // CUB3D_H
