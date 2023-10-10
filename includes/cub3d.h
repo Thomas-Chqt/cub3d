@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/10 11:59:51 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/10 14:30:48 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,13 @@ typedef enum e_map_tile
 typedef struct s_cub_file
 {
 	char		*no_tex;
+	t_ctx		*no_ctx;
 	char		*so_tex;
+	t_ctx		*so_ctx;
 	char		*we_tex;
+	t_ctx		*we_ctx;
 	char		*ea_tex;
+	t_ctx		*ea_ctx;
 	t_uint32	f_col;
 	t_uint32	c_col;
 
@@ -124,8 +128,7 @@ void	protate(float rad);
 
 void	run_dda(void);
 
-void	draw_walls(void);
-
+void	render_walls(void);
 void	render_minimap(void);
 
 #endif // CUB3D_H

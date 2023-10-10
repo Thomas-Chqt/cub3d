@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:30:24 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/10 12:12:20 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/10 14:30:50 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,21 @@ void	loop(void *none)
 	(void)none;
 	while ((poll_key(&key)))
 	{
-		if (key == UP_KEY)
+		if (key == W_KEY)
 			pmove_fb(0.1);
-		if (key == DOWN_KEY)
+		if (key == S_KEY)
 			pmove_fb(-0.1);
+		if (key == D_KEY)
+			pmove_lr(0.1);
+		if (key == A_KEY)
+			pmove_lr(-0.1);
 		if (key == LEFT_KEY)
 			protate(-0.1);
 		if (key == RIGHT_KEY)
 			protate(0.1);
 	}
 	run_dda();
-	draw_walls();
+	render_walls();
 	render_minimap();
 }
 

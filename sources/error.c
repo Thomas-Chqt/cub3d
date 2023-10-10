@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 16:15:39 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/08 14:21:24 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/10 13:24:38 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ void	cub_perror(char *str)
 		return ((void)ft_putendl_fd("map: no player start", STDERR_FILENO));
 	if (*g_error() == BAD_ARGS_ERROR)
 		return ((void)ft_putendl_fd("bad arguments", STDERR_FILENO));
+	if (*g_error() == TEX_LOAD_ERROR)
+	{
+		ft_putstr_fd("Unable to load textures: ", STDERR_FILENO);
+		perror("");
+		return ;
+	}
 	perror(str);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 18:02:40 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/08 14:28:14 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/10 13:06:19 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_tile	**calloc_tiles(t_vec2i size);
 t_tile	to_tile(char c);
 
 int		check_cubf_map(t_cubf *cubf);
+
+int		load_textures(t_cubf *cubf);
 
 t_bool	**calloc_visited(t_vec2i size);
 void	free_visited(t_bool	**visited, t_vec2i size);

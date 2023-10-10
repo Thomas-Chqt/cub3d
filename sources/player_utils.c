@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 18:16:13 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/09 22:50:33 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:49:32 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_bool	is_in_wall(t_vec2f p_pos)
 	t_vec2f	b_r;
 
 	p_size = div_vf2vf2(vi2tovf2(ctx_size(cub3d()->mmap.p_ctx)),
-		vi2tovf2(tile_size_px()));
+			vi2tovf2(tile_size_px()));
 	t_l = (t_vec2f){p_pos.x - (p_size.x / 2), p_pos.y - (p_size.y / 2)};
 	t_r = (t_vec2f){p_pos.x + (p_size.x / 2), p_pos.y - (p_size.y / 2)};
 	b_l = (t_vec2f){p_pos.x - (p_size.x / 2), p_pos.y + (p_size.y / 2)};
