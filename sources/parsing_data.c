@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 21:44:11 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/06 12:20:35 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:06:57 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,14 @@ static int	parse_color(char *line, t_uint32 *dest)
 		return (free_splited_str(splited_str), set_error(PARSING_ERROR), -1);
 	if (*dest != TRANSP)
 		return (free_splited_str(splited_str), set_error(MULTI_COL_ERROR), -1);
+	if (!is_number(splited_str[0]) || !is_number(splited_str[1])
+		|| !is_number(splited_str[0]))
+		return (free_splited_str(splited_str), set_error(PARSING_ERROR), -1);
 	r = atoi_long(splited_str[0]);
 	g = atoi_long(splited_str[1]);
 	b = atoi_long(splited_str[2]);
 	free_splited_str(splited_str);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		return (set_error(PARSING_ERROR), -1);
-	*dest = ((r << 16) | (g << 8) | b);
-	return (0);
+	return (*dest = ((r << 16) | (g << 8) | b), 0);
 }

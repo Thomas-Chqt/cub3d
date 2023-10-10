@@ -1,10 +1,10 @@
-NO resources/img/one.png
-SO resources/img/one.png
-WE resources/img/two.png
-EA resources/img/two.png
+NO resources/img/bluestone.xpm
+SO resources/img/colorstone.xpm
+WE resources/img/greystone.xpm
+EA resources/img/mossy.xpm
 
-F 128,128,128
-C 128,128,128
+F 64,0,0
+C 0,64,0
 
         1111111111111111111111111
         1000000000110000000000001
