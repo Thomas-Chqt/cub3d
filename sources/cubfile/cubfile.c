@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   cubfile.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/30 16:15:39 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/10 19:07:36 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/10 18:39:33 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/10 18:41:30 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error.h"
+#include "cub3d.h"
 
-static void	perror_cubf(void);
-static void	perror_tex(void);
-static void	perror_map(void);
-
-void	cub_perror(char *str)
+int	load_cubfile(char *file)
 {
-}
+	int	fd;
 
-static void	perror_cubf(void)
-{
-}
-
-static void	perror_tex(void)
-{
-}
-
-static void	perror_map(void)
-{
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (-1);
 }

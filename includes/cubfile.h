@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   cubfile.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/30 16:15:39 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/10 19:07:36 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/10 18:37:18 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/10 18:39:54 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error.h"
+#ifndef CUBFILE_H
+# define CUBFILE_H
 
-static void	perror_cubf(void);
-static void	perror_tex(void);
-static void	perror_map(void);
+#include "cub3d.h"
 
-void	cub_perror(char *str)
-{
-}
 
-static void	perror_cubf(void)
-{
-}
 
-static void	perror_tex(void)
-{
-}
-
-static void	perror_map(void)
-{
-}
+#endif // CUBFILE_H

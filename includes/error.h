@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 20:31:26 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/10 18:25:05 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:07:43 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,44 +15,34 @@
 
 # include "cub3d.h"
 
-# define MALLOC_ERROR		110
-# define NO_PLAYER_ERROR	111
-# define BAD_ARGS_ERROR		112
-# define TEX_LOAD_ERROR		113
+# define MALLOC_ERROR
+# define BAD_ARGS_ERROR
+# define NO_PLAYER_ERROR
 
-# define PARSING_ERROR		150
-# define MULTI_TEXT_ERROR	151
-# define MULTI_COL_ERROR	156
-# define UNEP_EOF_ERROR		157
-# define WRONG_CHAR_ERROR	158
-# define BIG_MAP_ERROR		159
-# define LONG_LINE_ERROR	160
+# define PARSING_ERROR		
+# define MULTI_TEXT_ERROR	
+# define MULTI_COL_ERROR	
+# define UNEP_EOF_ERROR		
+# define WRONG_CHAR_ERROR	
+# define BIG_MAP_ERROR		
+# define LONG_LINE_ERROR	
 
-# define NOT_CLOSED_ERROR	200
-# define DOUBLE_P_ERROR		201
+# define TEX_LOAD_ERROR
+	
+# define NOT_CLOSED_ERROR	
+# define DOUBLE_P_ERROR		
 
-typedef struct s_cub3d_file_error
+typedef struct t_cub3d_error
 {
-	char	*file;
-	int		line;
+	char	*cubf;
+	char	*texf;
+	int		y;
+	int		x;
 	int		code;
 
-}	t_cub_ferr;
+}	t_cuberr;
 
-typedef struct s_cub3d_map_error
-{
-	int		row;
-	int		collum;
-	int		code;
-
-}	t_cub_merr;
-
-t_cub_ferr	*g_file_err(void);
-t_cub_merr	*g_map_err(void);
-int			*g_error(void);
-
-void		set_error(int code);
+t_cuberr	*cub_error(void);
 void		cub_perror(char *str);
-void		cub_perror_set(int code);
 
 #endif // ERROR_H
