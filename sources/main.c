@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:30:24 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/12 15:46:56 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/12 21:50:26 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ __attribute__((destructor))
 static void	destructor(void)
 {
 	print_report();
-	// system("leaks -q cub3d_debug");
+	system("leaks -q cub3d_debug");
 }
 
 #endif // DEBUG

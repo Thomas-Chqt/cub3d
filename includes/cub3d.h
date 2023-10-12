@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/11 22:07:32 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:48:15 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@
 
 # define WIDTH	1280
 # define HEIGHT	720
+
 # define FOV	90
 
+typedef enum e_map_tile { empty = -1, wall = 1 }				t_mtile;
 typedef enum e_hit_side { no = -2, so = -1, ea = 1, we = 2 }	t_side;
 
 typedef struct s_dda_res
@@ -46,7 +48,7 @@ typedef struct s_cub3d
 	t_uint32	c_color;
 	t_uint32	f_color;
 
-	int			**map;
+	t_mtile		**map;
 	t_vec2i		m_size;
 
 	t_vec2f		p_pos;
