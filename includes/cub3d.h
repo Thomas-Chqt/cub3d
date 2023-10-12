@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/10 18:21:23 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/11 22:07:32 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_cub3d
 	t_uint32	f_color;
 
 	int			**map;
+	t_vec2i		m_size;
 
 	t_vec2f		p_pos;
 	t_vec2f		p_dir;
@@ -55,13 +56,12 @@ typedef struct s_cub3d
 	t_ctx		*mmap_ctx;
 	t_ctx		*p_ctx;
 
-	t_ctx		*wall_ctx;
 	t_dres		dda_res[WIDTH];
 
 }	t_cub3d;
 
 t_cub3d	*cub3d(void);
-int		setup(char *cubf_path);
+int		setup(int argc, char *argv[]);
 void	loop(void *none);
 void	clean(void *none);
 

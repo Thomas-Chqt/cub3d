@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:14:33 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/06 16:43:00 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:17:47 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ int		open(const char *path, int oflag, ...);
 int		close(int fildes);
 void	*malloc(size_t size);
 void	free(void *ptr);
+int		printf(const char *format, ...);
 
 #endif // EXTERNAL_FUNCTIONS_H
