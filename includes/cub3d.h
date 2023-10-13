@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 14:42:25 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/13 17:21:13 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,14 @@ void	clean(void *none);
 
 int		load_cubfile(char *file);
 int		init_minimap(t_vec2i size);
+
+void	pmove_fb(float dist);
+void	pmove_lr(float dist);
+void	protate(float rad);
+
+void	run_dda(void);
+
 void	render_minimap(t_vec2i pos);
+void	render_walls(void);
 
 #endif // CUB3D_H

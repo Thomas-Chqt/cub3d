@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:44:14 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 15:35:48 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/13 17:21:37 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	setup(int argc, char *argv[])
 	set_destructor(&clean, NULL);
 	if (load_cubfile(argv[1]) != 0)
 		return (clean(NULL), -1);
-	if (init_minimap((t_vec2i){WIDTH, HEIGHT}) != 0)
+	if (init_minimap((t_vec2i){WIDTH / 4, HEIGHT / 4}) != 0)
 		return (clean(NULL), -1);
 	return (0);
 }
@@ -45,19 +45,20 @@ void	loop(void *none)
 	while ((poll_key(&key)))
 	{
 		if (key == W_KEY)
-			;
+			pmove_fb(0.1f);
 		if (key == S_KEY)
-			;
+			pmove_fb(-0.1f);
 		if (key == D_KEY)
-			;
+			pmove_lr(0.1f);
 		if (key == A_KEY)
-			;
+			pmove_lr(-0.1f);
 		if (key == LEFT_KEY)
-			;
+			protate(-0.1f);
 		if (key == RIGHT_KEY)
-			;
+			protate(0.1f);
 	}
-	fill_ctx(back_ctx(), 0xAFAFAF);
+	run_dda();
+	render_walls();
 	render_minimap((t_vec2i){0, 0});
 }
 

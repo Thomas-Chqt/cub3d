@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:20:18 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 15:05:01 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:20:45 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	init_minimap(t_vec2i size)
 		return (set_error(MALLOC_ERROR), -1);
 	draw_mmap_tiles(cub3d()->mmap_ctx);
 	*pctx = new_context((t_vec2i){
-			mmap_tile_pxsize().x / 1,
-			mmap_tile_pxsize().y / 1});
+			mmap_tile_pxsize().x / 4,
+			mmap_tile_pxsize().y / 4});
 	if (*pctx == NULL)
 		return (free_context(cub3d()->mmap_ctx), set_error(MALLOC_ERROR), -1);
 	fill_ctx(*pctx, RED);
