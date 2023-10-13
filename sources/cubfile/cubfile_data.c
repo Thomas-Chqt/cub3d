@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 21:04:03 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/12 17:33:23 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:37:31 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,70 +14,77 @@
 #include "cubfile.h"
 #include "error.h"
 
-static int	load_line(char *line);
-static int	load_texture(char *line, t_ctx **dest);
-static int	load_color(char *line, t_uint32 *dest);
+static int	load_texture(char *line);
+static int	load_color(char *line);
 
 int	load_data(int fd)
 {
+	int		ret;
 	char	*line;
 
 	while (is_all_data_loaded() == false)
 	{
 		line = gnl_no_empty(fd);
 		if (line == NULL)
-			return (set_error((0b1100 << 28) | UNEXP_EOF), -1);
-		if (load_line(normalized_line(line)) != 0)
-			return (free(line), -1);
+			return (set_error(UNEXP_EOF_ERROR), -1);
+		ret = load_texture(line);
+		if (ret == PARSING_ERROR)
+			ret = load_color(line);
+		if (ret == PARSING_ERROR)
+			set_error(PARSING_ERROR);
 		free(line);
+		if (ret != 0)
+			return (-1);
 	}
 	return (0);
 }
 
-static int	load_line(char *line)
+static int	load_texture(char *line)
 {
-	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "NO\t", 3) == 0)
-		return (load_texture(line + 3, &cub3d()->no_tex));
-	if (ft_strncmp(line, "SO ", 3) == 0 || ft_strncmp(line, "SO\t", 3) == 0)
-		return (load_texture(line + 3, &cub3d()->so_tex));
-	if (ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "WE\t", 3) == 0)
-		return (load_texture(line + 3, &cub3d()->we_tex));
-	if (ft_strncmp(line, "EA ", 3) == 0 || ft_strncmp(line, "EA\t", 3) == 0)
-		return (load_texture(line + 3, &cub3d()->ea_tex));
-	if (ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "F\t", 2) == 0)
-		return (load_color(line + 2, &cub3d()->f_color));
-	if (ft_strncmp(line, "C ", 2) == 0 || ft_strncmp(line, "C\t", 2) == 0)
-		return (load_color(line + 2, &cub3d()->c_color));
-	return (set_error((0b1100 << 28) | PARSING), -1);
-}
+	t_ctx	**dest;
 
-static int	load_texture(char *line, t_ctx	**dest)
-{
-	if (is_empty_str(line))
-		return (set_error((0b1100 << 28) | PARSING), -1);
+	if (ft_strncmp(line, "NO", 2) == 0)
+		dest = &(cub3d()->no_tex);
+	else if (ft_strncmp(line, "SO", 2) == 0)
+		dest = &(cub3d()->so_tex);
+	else if (ft_strncmp(line, "WE", 2) == 0)
+		dest = &(cub3d()->we_tex);
+	else if (ft_strncmp(line, "EA", 2) == 0)
+		dest = &(cub3d()->ea_tex);
+	else
+		return (PARSING_ERROR);
+	if (is_whitespace(line[2]) == false)
+		return (set_error(PARSING_ERROR), -1);
 	if (*dest != NULL)
-		return (set_error((0b1100 << 28) | MULTI_TEXT), -1);
-	cuberr_set_texf(normalized_line(line));
-	*dest = ctx_from_img(normalized_line(line));
+		return (set_error(MULTI_TEX_ERROR), -1);
+	ft_strlcpy(cub_error()->texf, normed(line + 3), ERROR_FILES_MAX_LEN);
+	*dest = ctx_from_img(normed(line + 3));
 	if (*dest == NULL)
-		return (set_error((0b1101 << 28) | PERROR), -1);
+		return (set_error(TEXF_LOAD_ERROR), -1);
 	return (0);
 }
 
-static int	load_color(char *line, t_uint32 *dest)
+static int	load_color(char *line)
 {
-	char	**splited_line;
+	t_uint32	*dest;
+	char		**parsed_comp;
 
-	if (is_empty_str(line))
-		return (set_error((0b1100 << 28) | PARSING), -1);
+	if (ft_strncmp(line, "C", 1) == 0)
+		dest = &(cub3d()->c_color);
+	else if (ft_strncmp(line, "F", 1) == 0)
+		dest = &(cub3d()->f_color);
+	else
+		return (PARSING_ERROR);
+	if (is_whitespace(line[1]) == false)
+		return (set_error(PARSING_ERROR), -1);
 	if (*dest != TRANSP)
-		return (set_error((0b1100 << 28) | MULTI_COL), -1);
-	splited_line = split_color_comp(line);
-	if (splited_line == NULL)
+		return (set_error(MULTI_COL_ERROR), -1);
+	parsed_comp = parse_color_comp(normed(line + 2));
+	if (parsed_comp == NULL)
 		return (-1);
-	*dest = (ft_atoi(splited_line[0]) << 16) 
-		| (ft_atoi(splited_line[1]) << 8)
-		| ft_atoi(splited_line[2]);
-	free_splited_str(splited_line);
+	*dest = (ft_atoi(normed(parsed_comp[0])) << 16) 
+		| (ft_atoi(normed(parsed_comp[1])) << 8)
+		| ft_atoi(normed(parsed_comp[2]));
+	free_splited_str(parsed_comp);
 	return (0);
 }

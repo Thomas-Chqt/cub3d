@@ -1,35 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/30 14:30:24 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 12:06:52 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/13 14:40:16 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/13 14:44:22 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "error.h"
+#ifndef RENDER_H
+# define RENDER_H
 
-#ifdef DEBUG
+# include "cub3d.h"
 
-__attribute__((destructor))
-static void	destructor(void)
-{
-	print_report();
-	system("leaks -q cub3d_debug");
-}
+t_vec2i	mtos(t_vec2f vect, t_vec2i mmap_pos);
 
-#endif // DEBUG
-
-int	main(int argc, char *argv[])
-{
-	argc = 2;
-	argv[1] = "resources/maps/test.cub";
-	if (setup(argc, argv) != 0)
-		return (cub_perror(), 1);
-	start_main_loop(&loop, NULL);
-	return (0);
-}
+#endif // RENDER_H

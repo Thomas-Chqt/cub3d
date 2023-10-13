@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cubfile.c                                          :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 18:39:33 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 15:36:43 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/13 14:41:00 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/13 16:04:20 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "cubfile.h"
-#include "error.h"
+#include "render.h"
 
-int	load_cubfile(char *file)
+void	render_minimap(t_vec2i pos)
 {
-	int	fd;
-	int	i;
-
-	ft_strlcpy(cub_error()->cubf, file, ERROR_FILES_MAX_LEN);
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		return (set_error(CUBF_OPEN_ERROR), -1);
-	cub_error()->line = 0;
-	if (load_data(fd) != 0)
-		return (-1);
-	if (load_map(fd) != 0)
-		return (-1);
-	close(fd);
-	if (check_map() != 0)
-		return (-1);
-	return (0);
+	put_context(cub3d()->mmap_ctx, pos);
+	put_context(cub3d()->mmap_p_ctx,
+		sub_vi2vi2(mtos(cub3d()->p_pos, pos),
+			div_vi2vi2(ctx_size(cub3d()->mmap_p_ctx), (t_vec2i){2, 2})));
 }

@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/12 20:48:15 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:42:25 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_cub3d
 	t_vec2f		p_plane;
 
 	t_ctx		*mmap_ctx;
-	t_ctx		*p_ctx;
+	t_ctx		*mmap_p_ctx;
 
 	t_dres		dda_res[WIDTH];
 
@@ -68,5 +68,7 @@ void	loop(void *none);
 void	clean(void *none);
 
 int		load_cubfile(char *file);
+int		init_minimap(t_vec2i size);
+void	render_minimap(t_vec2i pos);
 
 #endif // CUB3D_H

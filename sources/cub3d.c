@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:44:14 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/11 23:10:19 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:35:48 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ t_cub3d	*cub3d(void)
 int	setup(int argc, char *argv[])
 {
 	if (argc != 2)
-		return (set_error((0b0000 << 28) | BAD_ARGS), -1);
+		return (set_error(BAD_ARGS_ERROR), -1);
 	if (create_window("cub3d", (t_vec2i){WIDTH, HEIGHT}) != 0)
-		return (set_error((0b0000 << 28) | MALLOC), -1);
+		return (set_error(MALLOC_ERROR), -1);
 	set_destructor(&clean, NULL);
 	if (load_cubfile(argv[1]) != 0)
+		return (clean(NULL), -1);
+	if (init_minimap((t_vec2i){WIDTH, HEIGHT}) != 0)
 		return (clean(NULL), -1);
 	return (0);
 }
@@ -55,6 +57,8 @@ void	loop(void *none)
 		if (key == RIGHT_KEY)
 			;
 	}
+	fill_ctx(back_ctx(), 0xAFAFAF);
+	render_minimap((t_vec2i){0, 0});
 }
 
 void	clean(void *none)
@@ -63,6 +67,7 @@ void	clean(void *none)
 	int		i;
 
 	(void)none;
+	delete_window();
 	cub = cub3d();
 	free_context(cub->no_tex);
 	free_context(cub->so_tex);
@@ -73,6 +78,5 @@ void	clean(void *none)
 		free(cub->map[i++]);
 	free(cub->map);
 	free_context(cub->mmap_ctx);
-	free_context(cub->p_ctx);
-	delete_window();
+	free_context(cub->mmap_p_ctx);
 }
