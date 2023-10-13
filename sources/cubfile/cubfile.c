@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:39:33 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 15:36:43 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/13 22:03:05 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 int	load_cubfile(char *file)
 {
 	int	fd;
-	int	i;
 
 	ft_strlcpy(cub_error()->cubf, file, ERROR_FILES_MAX_LEN);
 	fd = open(file, O_RDONLY);

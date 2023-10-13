@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:44:14 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 17:21:37 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/13 22:22:28 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ int	setup(int argc, char *argv[])
 		return (clean(NULL), -1);
 	if (init_minimap((t_vec2i){WIDTH / 4, HEIGHT / 4}) != 0)
 		return (clean(NULL), -1);
+	cub3d()->rays_ctx = new_context((t_vec2i){WIDTH / 4, HEIGHT / 4});
+	if (cub3d()->rays_ctx == NULL)
+		return (clean(NULL), set_error(MALLOC_ERROR), -1);
 	return (0);
 }
 
@@ -80,4 +83,5 @@ void	clean(void *none)
 	free(cub->map);
 	free_context(cub->mmap_ctx);
 	free_context(cub->mmap_p_ctx);
+	free_context(cub->rays_ctx);
 }

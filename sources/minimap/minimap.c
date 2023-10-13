@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:20:18 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 16:20:45 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/13 22:02:54 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,10 @@ static void	draw_mmap_tiles(t_ctx *ctx)
 		while (curr.x < cub3d()->m_size.x)
 		{
 			if (cub3d()->map[curr.y][curr.x] < 0)
-				draw_rect(cub3d()->mmap_ctx,
-					mul_vi2vi2(curr, mmap_tile_pxsize()),
+				draw_rect(ctx, mul_vi2vi2(curr, mmap_tile_pxsize()),
 					mmap_tile_pxsize(), WHITE);
 			else if (cub3d()->map[curr.y][curr.x] > 0)
-				draw_rect(cub3d()->mmap_ctx,
-					mul_vi2vi2(curr, mmap_tile_pxsize()),
+				draw_rect(ctx, mul_vi2vi2(curr, mmap_tile_pxsize()),
 					mmap_tile_pxsize(), BLACK);
 			curr.x++;
 		}

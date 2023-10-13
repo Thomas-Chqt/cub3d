@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 21:04:03 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 15:37:31 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/13 21:38:14 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	load_color(char *line)
 	parsed_comp = parse_color_comp(normed(line + 2));
 	if (parsed_comp == NULL)
 		return (-1);
-	*dest = (ft_atoi(normed(parsed_comp[0])) << 16) 
+	*dest = (ft_atoi(normed(parsed_comp[0])) << 16)
 		| (ft_atoi(normed(parsed_comp[1])) << 8)
 		| ft_atoi(normed(parsed_comp[2]));
 	free_splited_str(parsed_comp);

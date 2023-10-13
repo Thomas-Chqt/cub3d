@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:26:50 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 16:47:28 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/13 20:26:14 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ typedef struct s_dda
 
 	t_side	v_side;
 	t_side	h_side;
-
-	t_side	curr_side;
 
 }	t_dda;
 

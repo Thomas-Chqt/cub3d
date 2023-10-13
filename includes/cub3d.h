@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 17:21:13 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/13 20:40:21 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef enum e_hit_side { no = -2, so = -1, ea = 1, we = 2 }	t_side;
 
 typedef struct s_dda_res
 {
+	t_vec2f	dir;
 	float	dist;
 	t_side	hit_side;
 	float	wall_x;
@@ -57,6 +58,7 @@ typedef struct s_cub3d
 
 	t_ctx		*mmap_ctx;
 	t_ctx		*mmap_p_ctx;
+	t_ctx		*rays_ctx;
 
 	t_dres		dda_res[WIDTH];
 
