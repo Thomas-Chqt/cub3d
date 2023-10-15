@@ -1,7 +1,7 @@
-NO resources/img/bluestone.xpm
-SO resources/img/colorstone.xpm
-WE resources/img/greystone.xpm
-EA resources/img/mossy.xpm
+NO resources/textures/bluestone.xpm
+SO resources/textures/colorstone.xpm
+WE resources/textures/greystone.xpm
+EA resources/textures/mossy.xpm
 
 F 64,0,0
 C 0,64,0

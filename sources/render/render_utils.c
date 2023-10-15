@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:42:44 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 22:42:03 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/15 19:52:22 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "render.h"
 #include "minimap.h"
 
-t_vec2i	mtos(t_vec2f vect, t_vec2i mmap_pos)
+t_vec2i	mtomm(t_vec2f vect, t_vec2i mmap_pos)
 {
 	return (
 		vf2tovi2(
@@ -76,4 +76,18 @@ t_uint32	tex_px(t_wall walda, t_vec2i pos)
 	}
 	text_curr.y += tex_step;
 	return (ctx_px(tex, vf2tovi2(text_curr)));
+}
+
+t_vec2i		sprite_to_screen(t_sprite *sp, float *dist)
+{
+	t_vec2f	re_pos = sub_vf2vf2(sp->pos, cub3d()->p_pos);
+	float invDet = 1.0 / (cub3d()->p_plane.x * cub3d()->p_dir.y - cub3d()->p_dir.x * cub3d()->p_plane.y);
+	float transformX = invDet * (cub3d()->p_dir.y * re_pos.x - cub3d()->p_dir.x * re_pos.y);
+	float transformY = invDet * (-cub3d()->p_plane.y * re_pos.x + cub3d()->p_plane.x * re_pos.y);
+
+	*dist = transformY;
+	return ((t_vec2i){
+		.x = (int)((WIDTH / 2) * (1 + transformX / transformY)),
+		.y = (HEIGHT / 2)
+	});
 }

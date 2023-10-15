@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 20:40:21 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/15 17:30:32 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_cub3d
 	t_ctx		*rays_ctx;
 
 	t_dres		dda_res[WIDTH];
+	t_list		*sprite_lst;
 
 }	t_cub3d;
 
@@ -77,8 +78,10 @@ void	pmove_lr(float dist);
 void	protate(float rad);
 
 void	run_dda(void);
+void	sort_sprites(void);
 
-void	render_minimap(t_vec2i pos);
 void	render_walls(void);
+void	render_sprites(void);
+void	render_minimap(t_vec2i pos);
 
 #endif // CUB3D_H

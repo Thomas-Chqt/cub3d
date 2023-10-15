@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.h                                           :+:      :+:    :+:   */
+/*   sprite.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 14:40:16 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/15 17:48:51 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/15 16:45:37 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/15 17:24:44 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDER_H
-# define RENDER_H
+#ifndef SPRITE_H
+# define SPRITE_H
 
 # include "cub3d.h"
-# include "sprite.h"
 
-typedef struct s_wall_data
+typedef struct s_sprite
 {
-	int		wall_h;
-	int		wall_srt;
-	int		wall_end;
-	float	wall_x;
-	t_ctx	*tex;
+	t_vec2f	pos;
+	t_ctx	*img;
 
-}	t_wall;
+}	t_sprite;
 
-t_vec2i		mtomm(t_vec2f vect, t_vec2i mmap_pos);
-t_wall		init_wall_data(t_dres dda_res);
-t_uint32	tex_px(t_wall wall_data, t_vec2i pos);
-t_vec2i		sprite_to_screen(t_sprite *sp, float *dist);
+int		new_sprite(t_vec2f pos, t_ctx *img);
+void	free_sprites(void);
+void	sort_sprites(void);
 
-#endif // RENDER_H
+t_bool	is_sprite_sorted(t_sprite *a, t_sprite *b);
+void	del_sprite(t_sprite *sp);
+
+#endif // SPRITE_H
