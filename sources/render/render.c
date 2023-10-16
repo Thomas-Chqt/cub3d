@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:41:00 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/16 18:44:48 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/16 18:56:42 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	render_sprite(t_sprite *sp)
 		{
 			draw_vstripe(back_ctx(), ctx_vstripe(sp->img, (int)tex_x),
 				(t_vec2i){x, sp_screen_pos.y - (sp_size.y / 2)},
-				(t_vec2i){x, sp_screen_pos.y + (sp_size.y / 2) + 1});
+				(t_vec2i){x, sp_screen_pos.y + (sp_size.y / 2)});
 		}
 		x++;
 		tex_x += (float)ctx_size(sp->img).x / (float)sp_size.x;
