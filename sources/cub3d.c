@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:44:14 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/15 18:32:35 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/16 19:36:28 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "error.h"
 
 #include "sprite.h"
+
+void	on_mouse_move(void *none);
 
 t_cub3d	*cub3d(void)
 {
@@ -45,6 +47,8 @@ int	setup(int argc, char *argv[])
 	if (new_sprite(cub->p_pos,
 			ctx_from_img("resources/sprites/barrel.xpm")) != 0)
 		return (clean(NULL), -1);
+	set_mouse_blocking(true);
+	add_event(0, ON_MOUSEMOVE, &on_mouse_move, NULL);
 	return (0);
 }
 
@@ -95,4 +99,15 @@ void	clean(void *none)
 	free_context(cub->so_tex);
 	free_context(cub->no_tex);
 	delete_window();
+}
+
+void	on_mouse_move(void *none)
+{
+	int	dx;
+
+	(void)none;
+	dx = mouse_pos().x - (WIDTH / 2);
+	if (dx > 300)
+		dx = 300;
+	protate(0.001 * dx);
 }
