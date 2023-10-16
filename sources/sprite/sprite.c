@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 16:59:08 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/16 18:52:50 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/16 20:02:06 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int	new_sprite(t_vec2f pos, t_ctx *img)
 	((t_sprite *)new_node->data)->pos = pos;
 	((t_sprite *)new_node->data)->img = img;
 	clear_pixels(((t_sprite *)new_node->data)->img, BLACK);
+	if (ctx_vstripe(((t_sprite *)new_node->data)->img, 0).px == NULL)
+		return (del_sprite((t_sprite *)new_node->data),
+			free(new_node), set_error(MALLOC_ERROR), -1);
 	ft_lstadd_front(&cub3d()->sprite_lst, new_node);
 	return (0);
 }

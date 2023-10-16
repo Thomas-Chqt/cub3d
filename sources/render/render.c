@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:41:00 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/16 18:56:42 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/16 20:05:03 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	render_walls(void)
 			(t_vec2i){x, wall_data.wall_srt}, (t_vec2i){x, wall_data.wall_end});
 		if (wall_data.wall_end < HEIGHT)
 			draw_line(back_ctx(), (t_vec2i){x, wall_data.wall_end},
-				(t_vec2i){x, HEIGHT - 1}, cub3d()->f_color);
+				(t_vec2i){x, HEIGHT}, cub3d()->f_color);
 		x++;
 	}
 }
