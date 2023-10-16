@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:11:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 15:21:03 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/16 14:40:26 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	load_map(int fd)
 	{
 		if (load_line(line, &line_lst, y++) != 0)
 			return (free(line), ft_lstclear(&line_lst, &free_wrap), -1);
-		free(line);
 		cub_error()->line++;
 		line = get_next_line(fd);
 		if (line != NULL && is_empty_str(line) && is_file_over(fd) == false)
@@ -50,28 +49,26 @@ int	load_map(int fd)
 int	load_line(char *line, t_list **line_lst, int y)
 {
 	int		x;
-	char	*parsed_line;
 	t_list	*new_node;
 
 	if (cub3d()->m_size.y++ == INT_MAX)
 		return (set_error(BIG_MAP_ERROR), -1);
-	parsed_line = ft_calloc(ft_strlen(line), sizeof(char));
-	if (parsed_line == NULL)
-		return (set_error(MALLOC_ERROR), -1);
-	x = -1;
-	while (line[++x] != '\0' && line[x] != '\n')
+	x = 0;
+	while (line[x] != '\0' && line[x] != '\n')
 	{
 		if (x == INT_MAX)
-			return (free(parsed_line), set_error(LONG_LINE_ERROR), -1);
+			return (set_error(LONG_LINE_ERROR), -1);
 		cub_error()->column = x + 1;
-		if (process_char(line[x], parsed_line + x, (t_vec2i){x, y}) != 0)
-			return (free(parsed_line), -1);
+		if (process_char(line[x], line + x, (t_vec2i){x, y}) != 0)
+			return (-1);
+		x++;
 	}
+	line[x] = '\0';
 	if (cub3d()->m_size.x < x)
 		cub3d()->m_size.x = x;
-	new_node = ft_lstnew(parsed_line);
+	new_node = ft_lstnew(line);
 	if (new_node == NULL)
-		return (free(parsed_line), set_error(MALLOC_ERROR), -1);
+		return (set_error(MALLOC_ERROR), -1);
 	ft_lstadd_front(line_lst, new_node);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/30 14:26:53 by tchoquet          #+#    #+#              #
-#    Updated: 2023/10/08 14:31:44 by tchoquet         ###   ########.fr        #
+#    Updated: 2023/10/16 15:04:17 by tchoquet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,19 +28,20 @@ else ifneq (${TARGET_TYPE}, release)
     $(error Bad TARGET_TYPE)
 endif
 
-
     CC			= cc
+    CPPFLAGS	= $(foreach dir, ${INCLUDES_DIR}, -I${dir})
+    CFLAGS		=
+    LDFLAGS		=
+    LDLIBS		=
 ifeq (${TARGET_TYPE}, release)
-    CFLAGS		= -Wall -Wextra -Werror
-    LDLIBS		= -l ft -l Graphics
+    CFLAGS		+= -O3 -Wall -Wextra -Werror
+    LDLIBS		+= -l ft -l Graphics
 else ifeq (${TARGET_TYPE}, debug)
-    CFLAGS		= -g -D DEBUG
-    LDLIBS		= -l ft_debug -l Graphics_debug -l memory_leak_detector
+    CFLAGS		+= -O0 -g -D DEBUG
+    LDLIBS		+= -l memory_leak_detector -l ft_debug -l Graphics_debug
 else
     $(error Bad TARGET_TYPE)
 endif
-    CPPFLAGS	= $(foreach dir, ${INCLUDES_DIR}, -I${dir}) -I${MY_C_INCLUDE_PATH}
-    LDFLAGS		= -L${MY_LIBRARY_PATH}
 
 
 ifeq (${TARGET_TYPE}, release)
