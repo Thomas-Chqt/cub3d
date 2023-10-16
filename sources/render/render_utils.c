@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:42:44 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/15 19:52:22 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/16 18:08:38 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,63 +31,42 @@ t_vec2i	mtomm(t_vec2f vect, t_vec2i mmap_pos)
 
 t_wall	init_wall_data(t_dres dda_res)
 {
+	int		wall_h;
+	t_ctx	*tex;
 	t_wall	ret;
 
-	ret.wall_h = (int)(HEIGHT / dda_res.dist);
-	if (ret.wall_h >= HEIGHT)
-	{
-		ret.wall_srt = 0;
-		ret.wall_end = HEIGHT;
-	}
-	else
-	{
-		ret.wall_srt = HEIGHT / 2 - ret.wall_h / 2;
-		ret.wall_end = HEIGHT / 2 + ret.wall_h / 2;
-	}
-	ret.wall_x = dda_res.wall_x;
+	wall_h = (int)(HEIGHT / dda_res.dist);
+	ret.wall_srt = HEIGHT / 2 - wall_h / 2;
+	ret.wall_end = HEIGHT / 2 + wall_h / 2;
 	if (dda_res.hit_side == no)
-		ret.tex = cub3d()->no_tex;
+		tex = cub3d()->no_tex;
 	if (dda_res.hit_side == so)
-		ret.tex = cub3d()->so_tex;
+		tex = cub3d()->so_tex;
 	if (dda_res.hit_side == ea)
-		ret.tex = cub3d()->ea_tex;
+		tex = cub3d()->ea_tex;
 	if (dda_res.hit_side == we)
-		ret.tex = cub3d()->we_tex;
+		tex = cub3d()->we_tex;
+	ret.stripe = ctx_vstripe(tex, dda_res.wall_x * ctx_size(tex).x);
 	return (ret);
 }
 
-t_uint32	tex_px(t_wall walda, t_vec2i pos)
+t_vec2i	transform_sppos(t_sprite *sp, float *dist)
 {
-	static t_ctx	*tex;
-	static float	wall_x;
-	static float	tex_step;
-	static t_vec2f	text_curr;
+	t_vec2f	relative_pos;
+	float	inv_det;
+	float	transform_x;
+	float	transform_y;
 
-	if (walda.tex != tex || wall_x != walda.wall_x)
-	{
-		tex = walda.tex;
-		wall_x = walda.wall_x;
-		tex_step = (float)ctx_size(tex).y / (float)walda.wall_h;
-		text_curr = (t_vec2f){
-			walda.wall_x * (float)ctx_size(tex).x,
-			(pos.y - (HEIGHT / 2 - walda.wall_h / 2)) * tex_step
-		};
-		return (ctx_px(tex, vf2tovi2(text_curr)));
-	}
-	text_curr.y += tex_step;
-	return (ctx_px(tex, vf2tovi2(text_curr)));
-}
-
-t_vec2i		sprite_to_screen(t_sprite *sp, float *dist)
-{
-	t_vec2f	re_pos = sub_vf2vf2(sp->pos, cub3d()->p_pos);
-	float invDet = 1.0 / (cub3d()->p_plane.x * cub3d()->p_dir.y - cub3d()->p_dir.x * cub3d()->p_plane.y);
-	float transformX = invDet * (cub3d()->p_dir.y * re_pos.x - cub3d()->p_dir.x * re_pos.y);
-	float transformY = invDet * (-cub3d()->p_plane.y * re_pos.x + cub3d()->p_plane.x * re_pos.y);
-
-	*dist = transformY;
+	relative_pos = sub_vf2vf2(sp->pos, cub3d()->p_pos);
+	inv_det = 1.0 / (cub3d()->p_plane.x * cub3d()->p_dir.y
+			- cub3d()->p_dir.x * cub3d()->p_plane.y);
+	transform_x = inv_det * (cub3d()->p_dir.y * relative_pos.x
+			- cub3d()->p_dir.x * relative_pos.y);
+	transform_y = inv_det * (-cub3d()->p_plane.y * relative_pos.x
+			+ cub3d()->p_plane.x * relative_pos.y);
+	*dist = transform_y;
 	return ((t_vec2i){
-		.x = (int)((WIDTH / 2) * (1 + transformX / transformY)),
+		.x = (int)((WIDTH / 2) * (1 + transform_x / transform_y)),
 		.y = (HEIGHT / 2)
 	});
 }

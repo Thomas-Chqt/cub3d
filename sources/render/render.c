@@ -6,13 +6,13 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:41:00 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/15 20:36:39 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/16 18:44:48 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "render.h"
-# include "sprite.h"
+#include "sprite.h"
 
 void	render_sprite(t_sprite *sp);
 
@@ -38,80 +38,54 @@ void	render_minimap(t_vec2i pos)
 
 void	render_walls(void)
 {
-	t_vec2i	curr;
+	int		x;
 	t_wall	wall_data;
 
-	curr.x = 0;
-	while (curr.x < WIDTH)
+	x = 0;
+	while (x < WIDTH)
 	{
-		wall_data = init_wall_data(cub3d()->dda_res[curr.x]);
-		curr.y = 0;
-		while (curr.y < HEIGHT)
-		{
-			if (curr.y < wall_data.wall_srt)
-				draw_pixel(back_ctx(), curr, cub3d()->c_color);
-			else if (curr.y < wall_data.wall_end)
-				draw_pixel(back_ctx(), curr, tex_px(wall_data, curr));
-			else
-				draw_pixel(back_ctx(), curr, cub3d()->f_color);
-			curr.y++;
-		}
-		curr.x++;
+		wall_data = init_wall_data(cub3d()->dda_res[x]);
+		if (wall_data.wall_srt > 0)
+			draw_line(back_ctx(), (t_vec2i){x, 0},
+				(t_vec2i){x, wall_data.wall_srt - 1}, cub3d()->c_color);
+		draw_vstripe(back_ctx(), wall_data.stripe,
+			(t_vec2i){x, wall_data.wall_srt}, (t_vec2i){x, wall_data.wall_end});
+		if (wall_data.wall_end < HEIGHT)
+			draw_line(back_ctx(), (t_vec2i){x, wall_data.wall_end},
+				(t_vec2i){x, HEIGHT - 1}, cub3d()->f_color);
+		x++;
 	}
 }
 
 void	render_sprites(void)
 {
-	ft_lstiter(cub3d()->sprite_lst, (void (*)(void *))&render_sprite);
+	ft_lstiter(cub3d()->sprite_lst, (void (*)(void *)) & render_sprite);
 }
 
 void	render_sprite(t_sprite *sp)
 {
 	float	sp_dist;
-	t_vec2i	sp_screen_pos = sprite_to_screen(sp, &sp_dist);
+	t_vec2i	sp_screen_pos;
+	t_vec2i	sp_size;
+	int		x;
+	float	tex_x;
 
-
-	if (!(sp_dist > 0))
+	sp_screen_pos = transform_sppos(sp, &sp_dist);
+	if (sp_dist <= 0)
 		return ;
-
-
-	int spriteWidth		= ft_abs((int)(HEIGHT / (sp_dist)));
-	int spriteHeight	= ft_abs((int)(HEIGHT / (sp_dist)));
-
-	t_vec2i screen_start = {
-		.x = sp_screen_pos.x - (spriteWidth / 2),
-		.y = (HEIGHT / 2) - (spriteHeight / 2)
-	};
-	
-	t_vec2f img_step = (t_vec2f){
-		.x = (float)ctx_size(sp->img).x / (float)spriteWidth,
-		.y = (float)ctx_size(sp->img).y / (float)spriteHeight
-	};
-
-
-	t_vec2i	screen_curr;
-	t_vec2f img_curr;
-	screen_curr.x = screen_start.x;
-	if (screen_curr.x < 0)
-		screen_curr.x = 0;
-	img_curr.x = (screen_curr.x - screen_start.x) * img_step.x;
-	while (screen_curr.x < WIDTH && screen_curr.x < screen_start.x + spriteWidth)
+	sp_size = (t_vec2i){.x = ft_abs((int)(HEIGHT / (sp_dist))),
+		.y = ft_abs((int)(HEIGHT / (sp_dist)))};
+	x = sp_screen_pos.x - (sp_size.x / 2);
+	tex_x = 0;
+	while (x < WIDTH && x < sp_screen_pos.x + (sp_size.x / 2))
 	{
-		if (sp_dist < cub3d()->dda_res[screen_curr.x].dist)
+		if (x > 0 && sp_dist < cub3d()->dda_res[x].dist)
 		{
-			screen_curr.y = screen_start.y;
-			if (screen_curr.y < 0)
-				screen_curr.y = 0;
-			img_curr.y = (screen_curr.y - screen_start.y) * img_step.y;
-			while (screen_curr.y < HEIGHT && screen_curr.y < screen_start.y + spriteHeight)
-			{
-				if (ctx_px(sp->img, vf2tovi2(img_curr)) != 0)
-					draw_pixel(back_ctx(), screen_curr, ctx_px(sp->img, vf2tovi2(img_curr)));
-				screen_curr.y++;
-				img_curr.y += img_step.y;
-			}
+			draw_vstripe(back_ctx(), ctx_vstripe(sp->img, (int)tex_x),
+				(t_vec2i){x, sp_screen_pos.y - (sp_size.y / 2)},
+				(t_vec2i){x, sp_screen_pos.y + (sp_size.y / 2) + 1});
 		}
-		screen_curr.x++;
-		img_curr.x += img_step.x;
+		x++;
+		tex_x += (float)ctx_size(sp->img).x / (float)sp_size.x;
 	}
 }
