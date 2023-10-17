@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:03:20 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 15:44:31 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/17 16:51:24 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,4 +142,6 @@ static void	cub_perror5(void)
 		ft_putstr_fd(": ", STDERR_FILENO);
 		ft_putendl_fd("Map not closed", STDERR_FILENO);
 	}
+	if (cub_error()->code == ANIM_LOAD_ERROR)
+		perror(cub_error()->texf);
 }

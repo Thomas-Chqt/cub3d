@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:52:37 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/17 13:26:30 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/17 19:14:44 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	init_keys(void)
 	if (add_event(CMD_L_KEY, ON_KEYDOWN, &on_cmd_down, NULL) != 0)
 		return (set_error(MALLOC_ERROR), -1);
 	if (add_event(CMD_L_KEY, ON_KEYUP, &on_cmd_up, NULL) != 0)
+		return (set_error(MALLOC_ERROR), -1);
+	if (add_event(L_CLICK, ON_KEYDOWN, &on_l_click, NULL) != 0)
 		return (set_error(MALLOC_ERROR), -1);
 	hide_mouse();
 	cub3d()->is_m_block = true;
@@ -56,5 +58,3 @@ void	mouse_rot(void)
 	});
 	cub3d()->prev_mpos = mouse_pos();
 }
-
-

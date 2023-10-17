@@ -6,12 +6,13 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:32:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 20:32:59 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/17 19:14:23 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "casting.h"
+#include "sprite.h"
 
 static void	set_tile_step(t_dda *dest);
 static void	set_length_step(t_dda *dest);
@@ -70,4 +71,27 @@ static void	set_start_length(t_dda *dest)
 	else
 		dest->curr_length.y
 			= (dest->curr_tile.y + 1.0 - dest->start.y) * dest->length_step.y;
+}
+
+t_bool	sould_stop(t_dda *data, t_dres *res)
+{
+	t_list		*curr;
+	t_sprite	*sp;
+
+	if (res->first_hit == NULL)
+	{
+		curr = cub3d()->sprite_lst;
+		while (curr != NULL)
+		{
+			sp = (t_sprite *)curr->data;
+			if (vf2tovi2(sp->pos).x == data->curr_tile.x
+				&& vf2tovi2(sp->pos).y == data->curr_tile.y)
+			{
+				res->first_hit = sp;
+				break ;
+			}
+			curr = curr->next;
+		}
+	}
+	return (cub3d()->map[data->curr_tile.y][data->curr_tile.x] >= wall);
 }

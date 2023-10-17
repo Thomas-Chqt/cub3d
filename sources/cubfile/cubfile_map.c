@@ -6,13 +6,14 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:11:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/16 14:40:26 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/17 19:14:33 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "cubfile.h"
 #include "error.h"
+#include "sprite.h"
 
 int	load_line(char *line, t_list **line_lst, int y);
 int	process_char(char src, char *dest, t_vec2i pos);
@@ -85,6 +86,13 @@ int	process_char(char src, char *dest, t_vec2i pos)
 		cub3d()->p_pos.y = (float)pos.y + 0.5f;
 		set_player_dir(src);
 		set_player_plane(src);
+		return (*dest = '0', 0);
+	}
+	if (src == 'X')
+	{
+		if (new_sprite((t_vec2f){(float)pos.x + 0.5f,
+				(float)pos.y + 0.5f}, ss) != 0)
+			return (-1);
 		return (*dest = '0', 0);
 	}
 	set_error(BAD_CHAR_ERROR);

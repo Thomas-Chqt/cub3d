@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:41:00 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/16 20:05:03 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/17 19:02:05 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,18 @@ void	render_sprite(t_sprite *sp)
 		return ;
 	sp_size = (t_vec2i){.x = ft_abs((int)(HEIGHT / (sp_dist))),
 		.y = ft_abs((int)(HEIGHT / (sp_dist)))};
-	x = sp_screen_pos.x - (sp_size.x / 2);
+	x = (sp_screen_pos.x - (sp_size.x / 2)) - 1;
 	tex_x = 0;
-	while (x < WIDTH && x < sp_screen_pos.x + (sp_size.x / 2))
+	while (++x < WIDTH && x < sp_screen_pos.x + (sp_size.x / 2))
 	{
 		if (x > 0 && sp_dist < cub3d()->dda_res[x].dist)
 		{
-			draw_vstripe(back_ctx(), ctx_vstripe(sp->img, (int)tex_x),
+			draw_vstripe(back_ctx(),
+				ctx_vstripe(sp->curr_anim->curr_frame, (int)tex_x),
 				(t_vec2i){x, sp_screen_pos.y - (sp_size.y / 2)},
 				(t_vec2i){x, sp_screen_pos.y + (sp_size.y / 2)});
 		}
-		x++;
-		tex_x += (float)ctx_size(sp->img).x / (float)sp_size.x;
+		tex_x += (float)ctx_size(sp->curr_anim->curr_frame).x
+			/ (float)sp_size.x;
 	}
 }

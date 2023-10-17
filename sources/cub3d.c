@@ -6,13 +6,12 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:44:14 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/17 13:17:27 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:46:00 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "error.h"
-#include "sprite.h"
 
 t_cub3d	*cub3d(void)
 {
@@ -53,6 +52,7 @@ void	loop(void *none)
 	mouse_rot();
 	run_dda();
 	sort_sprites();
+	update_sprites();
 	render_walls();
 	render_sprites();
 	render_minimap((t_vec2i){0, 0});

@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 17:12:37 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/15 17:52:28 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/17 17:45:27 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,14 @@ t_bool	is_sprite_sorted(t_sprite *a, t_sprite *b)
 	);
 }
 
-void	del_sprite(t_sprite *sp)
+void	update_one_sprite(void *sp)
 {
-	free_context(sp->img);
+	update_anim(((t_sprite *)sp)->curr_anim);
+}
+
+void	del_sprite(void *sp)
+{
+	free_anim(((t_sprite *)sp)->idle_anim);
+	free_anim(((t_sprite *)sp)->die_anime);
 	free(sp);
 }

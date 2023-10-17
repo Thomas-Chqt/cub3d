@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/17 13:13:28 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/17 19:23:02 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,18 @@
 
 # define FOV	90
 
+typedef struct s_sprite	t_sprite;
+
 typedef enum e_map_tile { empty = -1, wall = 1 }				t_mtile;
 typedef enum e_hit_side { no = -2, so = -1, ea = 1, we = 2 }	t_side;
 
 typedef struct s_dda_res
 {
-	t_vec2f	dir;
-	float	dist;
-	t_side	hit_side;
-	float	wall_x;
+	t_vec2f		dir;
+	float		dist;
+	t_side		hit_side;
+	float		wall_x;
+	t_sprite	*first_hit;
 
 }	t_dres;
 
@@ -86,9 +89,12 @@ void	mouse_rot(void);
 
 void	run_dda(void);
 void	sort_sprites(void);
+void	update_sprites(void);
 
 void	render_walls(void);
 void	render_sprites(void);
 void	render_minimap(t_vec2i pos);
+
+void	free_sprites(void);
 
 #endif // CUB3D_H

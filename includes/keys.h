@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:51:37 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/17 13:16:37 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:09:44 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@
 
 void	on_cmd_down(void *none);
 void	on_cmd_up(void *none);
+void	on_l_click(void *none);
 
 #endif // KEYS_H

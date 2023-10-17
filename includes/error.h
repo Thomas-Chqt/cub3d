@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 20:31:26 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 15:43:42 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/17 16:50:42 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define BAD_CHAR_ERROR		0xC
 # define NO_P_ERROR			0xD
 # define NOT_CLOSE_ERROR	0xE
+# define ANIM_LOAD_ERROR	0xF
 
 typedef struct t_cub3d_error
 {
