@@ -6,16 +6,13 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:44:14 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/16 19:36:28 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/17 13:17:27 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "error.h"
-
 #include "sprite.h"
-
-void	on_mouse_move(void *none);
 
 t_cub3d	*cub3d(void)
 {
@@ -41,14 +38,8 @@ int	setup(int argc, char *argv[])
 		return (clean(NULL), -1);
 	if (init_minimap((t_vec2i){WIDTH / 4, HEIGHT / 4}) != 0)
 		return (clean(NULL), -1);
-	cub->rays_ctx = new_context((t_vec2i){WIDTH / 4, HEIGHT / 4});
-	if (cub->rays_ctx == NULL)
-		return (clean(NULL), set_error(MALLOC_ERROR), -1);
-	if (new_sprite(cub->p_pos,
-			ctx_from_img("resources/sprites/barrel.xpm")) != 0)
+	if (init_keys() != 0)
 		return (clean(NULL), -1);
-	set_mouse_blocking(true);
-	add_event(0, ON_MOUSEMOVE, &on_mouse_move, NULL);
 	return (0);
 }
 
@@ -58,20 +49,8 @@ void	loop(void *none)
 
 	(void)none;
 	while ((poll_key(&key)))
-	{
-		if (key == W_KEY)
-			pmove_fb(0.1f);
-		if (key == S_KEY)
-			pmove_fb(-0.1f);
-		if (key == D_KEY)
-			pmove_lr(0.1f);
-		if (key == A_KEY)
-			pmove_lr(-0.1f);
-		if (key == LEFT_KEY)
-			protate(-0.1f);
-		if (key == RIGHT_KEY)
-			protate(0.1f);
-	}
+		key_loop(key);
+	mouse_rot();
 	run_dda();
 	sort_sprites();
 	render_walls();
@@ -99,15 +78,4 @@ void	clean(void *none)
 	free_context(cub->so_tex);
 	free_context(cub->no_tex);
 	delete_window();
-}
-
-void	on_mouse_move(void *none)
-{
-	int	dx;
-
-	(void)none;
-	dx = mouse_pos().x - (WIDTH / 2);
-	if (dx > 300)
-		dx = 300;
-	protate(0.001 * dx);
 }
