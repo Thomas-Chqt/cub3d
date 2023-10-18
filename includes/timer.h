@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keys.h                                             :+:      :+:    :+:   */
+/*   timer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 12:51:37 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/17 18:09:44 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/18 18:43:08 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/18 18:50:20 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEYS_H
-# define KEYS_H
+#ifndef TIMER_H
+# define TIMER_H
+
+# define TIMER_FPS 60
 
 # include "cub3d.h"
 
-void	on_cmd_down(void *none);
-void	on_cmd_up(void *none);
-void	on_l_click(void *none);
+typedef struct s_timer
+{
+	int	n;
+	int	target;
 
-#endif // KEYS_H
+}	t_timer;
+
+t_timer	new_timer(float s);
+t_bool	update_timer(t_timer *timer);
+void	reset_timer(t_timer *timer);
+
+#endif // TIMER_H

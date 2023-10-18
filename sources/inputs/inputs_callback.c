@@ -1,40 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keys_utils.c                                       :+:      :+:    :+:   */
+/*   inputs_callback.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 13:12:12 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/17 19:14:40 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/18 17:02:09 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/18 21:00:02 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "keys.h"
-
+#include "cubfile.h"
+#include "inputs.h"
 #include "sprite.h"
+#include "casting.h"
+#include "player.h"
 
-void	on_cmd_down(void *none)
+void	on_cmd_down(t_cub3d *cub)
 {
-	(void)none;
 	show_mouse();
-	cub3d()->is_m_block = false;
+	cub->is_m_block = false;
 	desac_poll_key();
 }
 
-void	on_cmd_up(void *none)
+void	on_cmd_up(t_cub3d *cub)
 {
-	(void)none;
 	hide_mouse();
-	cub3d()->is_m_block = true;
+	cub->is_m_block = true;
 	react_poll_key();
 }
 
-void	on_l_click(void *none)
+void	on_l_click(t_cub3d *cub)
 {
-	(void)none;
-	if (cub3d()->dda_res[WIDTH / 2].first_hit != NULL)
-		play_anim(cub3d()->dda_res[WIDTH / 2].first_hit,
-			cub3d()->dda_res[WIDTH / 2].first_hit->die_anime);
+	t_sprite	*hit;
+
+	hit = dda_one_ray(cub->player->pos, cub->player->dir, cub);
+	if (hit == NULL)
+		return ;
+	sp_take_damage(hit, 100, cub->animations);
 }

@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/17 19:23:02 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:08:19 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,74 +27,30 @@
 
 # define FOV	90
 
-typedef struct s_sprite	t_sprite;
+typedef void			(*t_vf)(void *);
+typedef t_bool			(*t_sf)(void *, void *, void *);
+typedef void			(*t_vvf)(void *, void *);
 
-typedef enum e_map_tile { empty = -1, wall = 1 }				t_mtile;
-typedef enum e_hit_side { no = -2, so = -1, ea = 1, we = 2 }	t_side;
-
-typedef struct s_dda_res
-{
-	t_vec2f		dir;
-	float		dist;
-	t_side		hit_side;
-	float		wall_x;
-	t_sprite	*first_hit;
-
-}	t_dres;
+typedef struct s_cubf	t_cubf;
+typedef struct s_play	t_play;
+typedef struct s_dda	t_dda;
+typedef struct s_anims	t_anims;
 
 typedef struct s_cub3d
 {
-	t_ctx		*no_tex;
-	t_ctx		*so_tex;
-	t_ctx		*we_tex;
-	t_ctx		*ea_tex;
+	t_cubf	*cubfile;
+	t_play	*player;
+	t_dda	*dda_result;
+	t_list	*sprite_list;
+	t_anims	*animations;
 
-	t_uint32	c_color;
-	t_uint32	f_color;
-
-	t_mtile		**map;
-	t_vec2i		m_size;
-
-	t_vec2f		p_pos;
-	t_vec2f		p_dir;
-	t_vec2f		p_plane;
-
-	t_ctx		*mmap_ctx;
-	t_ctx		*mmap_p_ctx;
-	t_ctx		*rays_ctx;
-
-	t_dres		dda_res[WIDTH];
-	t_list		*sprite_lst;
-
-	t_vec2i		prev_mpos;
-	t_bool		is_m_block;
+	t_vec2i	prev_mpos;
+	t_bool	is_m_block;
 
 }	t_cub3d;
 
-t_cub3d	*cub3d(void);
-int		setup(int argc, char *argv[]);
-void	loop(void *none);
-void	clean(void *none);
-
-int		load_cubfile(char *file);
-int		init_minimap(t_vec2i size);
-int		init_keys(void);
-
-void	pmove_fb(float dist);
-void	pmove_lr(float dist);
-void	protate(float rad);
-
-void	key_loop(int key);
-void	mouse_rot(void);
-
-void	run_dda(void);
-void	sort_sprites(void);
-void	update_sprites(void);
-
-void	render_walls(void);
-void	render_sprites(void);
-void	render_minimap(t_vec2i pos);
-
-void	free_sprites(void);
+int		setup(t_cub3d *cub, int argc, char *argv[]);
+void	loop(t_cub3d *cub);
+void	clean(t_cub3d *cub);
 
 #endif // CUB3D_H

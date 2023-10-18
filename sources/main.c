@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:30:24 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 12:06:52 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:30:05 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@ static void	destructor(void)
 
 int	main(int argc, char *argv[])
 {
+	t_cub3d	cub3d;
+
 	argc = 2;
 	argv[1] = "resources/maps/test.cub";
-	if (setup(argc, argv) != 0)
-		return (cub_perror(), 1);
-	start_main_loop(&loop, NULL);
+	cub3d = (t_cub3d){};
+	if (setup(&cub3d, argc, argv) != 0)
+		return (delete_window(), cub_perror(), 1);
+	start_main_loop((t_vf) & loop, &cub3d);
 	return (0);
 }

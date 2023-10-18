@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 21:04:03 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 21:38:14 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:45:59 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,43 @@
 #include "cubfile.h"
 #include "error.h"
 
-static int	load_texture(char *line);
-static int	load_color(char *line);
+static int	load_texture(t_cubf *cubf, char *line);
+static int	load_color(t_cubf *cubf, char *line);
 
-int	load_data(int fd)
+int	load_data(t_cubf *cubf, int fd)
 {
 	int		ret;
 	char	*line;
 
-	while (is_all_data_loaded() == false)
+	while (is_all_data_loaded(cubf) == false)
 	{
 		line = gnl_no_empty(fd);
 		if (line == NULL)
-			return (set_error(UNEXP_EOF_ERROR), -1);
-		ret = load_texture(line);
+			return (free_cubf_textures(cubf), set_error(UNEXP_EOF_ERROR), -1);
+		ret = load_texture(cubf, line);
 		if (ret == PARSING_ERROR)
-			ret = load_color(line);
+			ret = load_color(cubf, line);
 		if (ret == PARSING_ERROR)
 			set_error(PARSING_ERROR);
 		free(line);
 		if (ret != 0)
-			return (-1);
+			return (free_cubf_textures(cubf), -1);
 	}
 	return (0);
 }
 
-static int	load_texture(char *line)
+static int	load_texture(t_cubf *cubf, char *line)
 {
 	t_ctx	**dest;
 
 	if (ft_strncmp(line, "NO", 2) == 0)
-		dest = &(cub3d()->no_tex);
+		dest = &(cubf->no_tex);
 	else if (ft_strncmp(line, "SO", 2) == 0)
-		dest = &(cub3d()->so_tex);
+		dest = &(cubf->so_tex);
 	else if (ft_strncmp(line, "WE", 2) == 0)
-		dest = &(cub3d()->we_tex);
+		dest = &(cubf->we_tex);
 	else if (ft_strncmp(line, "EA", 2) == 0)
-		dest = &(cub3d()->ea_tex);
+		dest = &(cubf->ea_tex);
 	else
 		return (PARSING_ERROR);
 	if (is_whitespace(line[2]) == false)
@@ -64,15 +64,15 @@ static int	load_texture(char *line)
 	return (0);
 }
 
-static int	load_color(char *line)
+static int	load_color(t_cubf *cubf, char *line)
 {
 	t_uint32	*dest;
 	char		**parsed_comp;
 
 	if (ft_strncmp(line, "C", 1) == 0)
-		dest = &(cub3d()->c_color);
+		dest = &(cubf->c_color);
 	else if (ft_strncmp(line, "F", 1) == 0)
-		dest = &(cub3d()->f_color);
+		dest = &(cubf->f_color);
 	else
 		return (PARSING_ERROR);
 	if (is_whitespace(line[1]) == false)

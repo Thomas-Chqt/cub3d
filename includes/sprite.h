@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 16:45:37 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/17 19:20:38 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/18 20:54:57 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,26 @@
 # include "animation.h"
 
 typedef enum e_sp_type {barrel, ss}		t_sp_type;
-typedef enum e_sp_state {idle, dead}	t_sp_state;
 
-struct s_sprite
+typedef struct s_sprite
 {
-	t_vec2f	pos;
-	t_anim	*curr_anim;
+	t_sp_type	type;
+	t_vec2f		pos;
+	t_ctx		*img;
 
-	t_anim	*idle_anim;
-	t_anim	*die_anime;
-};
+	t_anim		curr_anim;
 
-int		new_sprite(t_vec2f pos, t_sp_type type);
-void	play_anim(t_sprite *sp, t_anim *anim);
+	int			hp;
 
-t_bool	is_sprite_sorted(t_sprite *a, t_sprite *b);
-void	update_one_sprite(void *sp);
-void	del_sprite(void *sp);
+}	t_sprite;
+
+int			add_new_sprite(t_list **lst, t_sp_type type, t_vec2f pos);
+t_bool		is_sp_closer(t_sprite *a, t_sprite *b, t_play *p);
+void		play_idle_anim(t_sprite *sp, t_anims *anims);
+void		play_anim(t_sprite *sp, t_anim_type type, t_anims *anims);
+void		sp_take_damage(t_sprite *sp, int amount, t_anims *anims);
+
+t_sprite	*new_barrel_sprite(void);
+t_sprite	*new_ss_sprite(void);
 
 #endif // SPRITE_H

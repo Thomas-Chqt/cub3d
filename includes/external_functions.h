@@ -6,13 +6,14 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 12:14:33 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/11 14:17:47 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:09:09 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXTERNAL_FUNCTIONS_H
 # define EXTERNAL_FUNCTIONS_H
 
+# include <stddef.h>
 # include <math.h>
 
 # define STDIN_FILENO 0

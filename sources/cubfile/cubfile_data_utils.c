@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:00:39 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 13:52:36 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:39:57 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,19 @@
 #include "cubfile.h"
 #include "error.h"
 
-t_bool	is_all_data_loaded(void)
+t_bool	is_all_data_loaded(t_cubf *cubf)
 {
-	t_cub3d	*cub;
-
-	cub = cub3d();
-	if (cub->no_tex == NULL)
+	if (cubf->no_tex == NULL)
 		return (false);
-	if (cub->so_tex == NULL)
+	if (cubf->so_tex == NULL)
 		return (false);
-	if (cub->we_tex == NULL)
+	if (cubf->we_tex == NULL)
 		return (false);
-	if (cub->ea_tex == NULL)
+	if (cubf->ea_tex == NULL)
 		return (false);
-	if (cub->c_color == TRANSP)
+	if (cubf->c_color == TRANSP)
 		return (false);
-	if (cub->f_color == TRANSP)
+	if (cubf->f_color == TRANSP)
 		return (false);
 	return (true);
 }

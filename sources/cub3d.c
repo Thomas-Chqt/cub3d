@@ -6,76 +6,59 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:44:14 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/17 18:46:00 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/18 20:44:25 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "error.h"
+#include "cubfile.h"
+#include "player.h"
+#include "casting.h"
+#include "render.h"
+#include "inputs.h"
+#include "sprite.h"
+#include "animation.h"
 
-t_cub3d	*cub3d(void)
+int	setup(t_cub3d *cub, int argc, char *argv[])
 {
-	static t_cub3d	global_data = {
-		.f_color = TRANSP,
-		.c_color = TRANSP
-	};
-
-	return (&global_data);
-}
-
-int	setup(int argc, char *argv[])
-{
-	t_cub3d	*cub;
-
-	cub = cub3d();
 	if (argc != 2)
 		return (set_error(BAD_ARGS_ERROR), -1);
-	if (create_window("cub3d", (t_vec2i){WIDTH, HEIGHT}) != 0)
+	if (create_window("cub3d", WIDTH, HEIGHT) != 0)
 		return (set_error(MALLOC_ERROR), -1);
-	set_destructor(&clean, NULL);
-	if (load_cubfile(argv[1]) != 0)
-		return (clean(NULL), -1);
-	if (init_minimap((t_vec2i){WIDTH / 4, HEIGHT / 4}) != 0)
-		return (clean(NULL), -1);
-	if (init_keys() != 0)
-		return (clean(NULL), -1);
+	set_destructor((t_vf) & clean, cub);
+	if (setup_inputs(cub) != 0)
+		return (clean(cub), -1);
+	if (parse_cubfile(&cub->cubfile, argv[1]) != 0)
+		return (clean(cub), -1);
+	cub->sprite_list = cub->cubfile->sp_lst;
+	cub->cubfile->sp_lst = NULL;
+	if (setup_player(&cub->player, cub->cubfile) != 0)
+		return (clean(cub), -1);
+	if (setup_casting(&cub->dda_result) != 0)
+		return (clean(cub), -1);
+	if (setup_anims(&cub->animations) != 0)
+		return (clean(cub), -1);
+	lst_iterdata(cub->sprite_list, (t_vvf) & play_idle_anim, cub->animations);
 	return (0);
 }
 
-void	loop(void *none)
+void	loop(t_cub3d *cub)
 {
-	int	key;
-
-	(void)none;
-	while ((poll_key(&key)))
-		key_loop(key);
-	mouse_rot();
-	run_dda();
-	sort_sprites();
-	update_sprites();
-	render_walls();
-	render_sprites();
-	render_minimap((t_vec2i){0, 0});
+	input_loop(cub);
+	mouse_loop(cub);
+	run_dda(cub->dda_result, cub->player, cub);
+	render_walls(cub->dda_result, cub->cubfile);
+	lst_qcksort_data(cub->sprite_list, (t_sf) & is_sp_closer, cub->player);
+	lst_iterdata(cub->sprite_list, (t_vvf) & render_sprite, cub);
 }
 
-void	clean(void *none)
+void	clean(t_cub3d *cub)
 {
-	t_cub3d	*cub;
-	int		i;
-
-	(void)none;
-	cub = cub3d();
-	free_sprites();
-	free_context(cub->rays_ctx);
-	free_context(cub->mmap_p_ctx);
-	free_context(cub->mmap_ctx);
-	i = 0;
-	while (cub->map != NULL && i < cub->m_size.y)
-		free(cub->map[i++]);
-	free(cub->map);
-	free_context(cub->ea_tex);
-	free_context(cub->we_tex);
-	free_context(cub->so_tex);
-	free_context(cub->no_tex);
+	clean_anims(cub->animations);
+	ft_lstclear(&cub->sprite_list, free_wrap);
+	clean_casting(cub->dda_result);
+	clean_player(cub->player);
+	clean_cubfile(cub->cubfile);
 	delete_window();
 }

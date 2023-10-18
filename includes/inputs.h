@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.h                                           :+:      :+:    :+:   */
+/*   inputs.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 14:40:16 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/18 18:17:43 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/18 16:58:05 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/18 20:57:55 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDER_H
-# define RENDER_H
+#ifndef INPUTS_H
+# define INPUTS_H
 
 # include "cub3d.h"
-# include "casting.h"
-# include "sprite.h"
 
-typedef struct s_wall_data
-{
-	int			wall_srt;
-	int			wall_end;
-	t_stripe	stripe;
+int		setup_inputs(t_cub3d *cub);
+void	input_loop(t_cub3d *cub);
+void	mouse_loop(t_cub3d *cub);
 
-}	t_wall;
+void	on_cmd_down(t_cub3d *cub);
+void	on_cmd_up(t_cub3d *cub);
+void	on_l_click(t_cub3d *cub);
 
-void	render_walls(t_dda *dda_res, t_cubf *cubf);
-void	render_sprite(t_sprite *sp, t_cub3d *cub);
-
-t_wall	init_wall_data(t_rres ray_res, t_cubf *cubf);
-t_vec2i	transform_sppos(t_sprite *sp, float *dist, t_play *player);
-
-#endif // RENDER_H
+#endif // INPUTS_H

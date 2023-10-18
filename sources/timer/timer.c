@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.h                                          :+:      :+:    :+:   */
+/*   timer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 14:18:29 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/13 14:29:21 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/18 18:46:41 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/18 19:41:07 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIMAP_H
-# define MINIMAP_H
+#include "cub3d.h"
+#include "timer.h"
 
-# include "cub3d.h"
+t_timer	new_timer(float s)
+{
+	return ((t_timer){
+		.n = 0,
+		.target = s * TIMER_FPS
+	});
+}
 
-t_vec2i	mmap_tile_pxsize(void);
+t_bool	update_timer(t_timer *timer)
+{
+	if (++(timer->n) >= timer->target)
+		return (timer->n = timer->target, true);
+	return (false);
+}
 
-#endif // MINIMAP_H
+void	reset_timer(t_timer *timer)
+{
+	timer->n = 0;
+}

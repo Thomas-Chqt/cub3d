@@ -6,35 +6,36 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 17:12:37 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/17 17:45:27 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/18 20:53:09 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "sprite.h"
+#include "error.h"
 
-t_bool	is_sprite_sorted(t_sprite *a, t_sprite *b)
+t_sprite	*new_barrel_sprite(void)
 {
-	return (
-		(((cub3d()->p_pos.x - a->pos.x)
-				* (cub3d()->p_pos.x - a->pos.x)
-				+ (cub3d()->p_pos.y - a->pos.y)
-				* (cub3d()->p_pos.y - a->pos.y))
-			>= ((cub3d()->p_pos.x - b->pos.x)
-				* (cub3d()->p_pos.x - b->pos.x)
-				+ (cub3d()->p_pos.y - b->pos.y)
-				* (cub3d()->p_pos.y - b->pos.y)))
-	);
+	t_sprite	*sp;
+
+	sp = ft_calloc(1, sizeof(t_sprite));
+	if (sp == NULL)
+		return (set_error(MALLOC_ERROR), NULL);
+	sp->type = barrel;
+	sp->img = NULL;
+	sp->hp = 100;
+	return (sp);
 }
 
-void	update_one_sprite(void *sp)
+t_sprite	*new_ss_sprite(void)
 {
-	update_anim(((t_sprite *)sp)->curr_anim);
-}
+	t_sprite	*sp;
 
-void	del_sprite(void *sp)
-{
-	free_anim(((t_sprite *)sp)->idle_anim);
-	free_anim(((t_sprite *)sp)->die_anime);
-	free(sp);
+	sp = ft_calloc(1, sizeof(t_sprite));
+	if (sp == NULL)
+		return (set_error(MALLOC_ERROR), NULL);
+	sp->type = ss;
+	sp->img = NULL;
+	sp->hp = 100;
+	return (sp);
 }

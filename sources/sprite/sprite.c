@@ -6,58 +6,63 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 16:59:08 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/17 18:34:04 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/18 20:57:22 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "sprite.h"
 #include "error.h"
+#include "player.h"
 
-int	new_sprite(t_vec2f pos, t_sp_type type)
+int	add_new_sprite(t_list **lst, t_sp_type type, t_vec2f pos)
 {
-	t_list		*new_node;
-	t_sprite	*sp;
+	t_list	*node;
 
-	new_node = ft_lstnew(NULL);
-	if (new_node == NULL)
+	node = ft_lstnew(NULL);
+	if (node == NULL)
 		return (set_error(MALLOC_ERROR), -1);
-	new_node->data = malloc(sizeof(t_sprite));
-	if (new_node->data == NULL)
-		return (ft_lstclear(&new_node, &del_sprite),
-			set_error(MALLOC_ERROR), -1);
-	sp = (t_sprite *)new_node->data;
-	sp->pos = pos;
+	if (type == barrel)
+		node->data = new_barrel_sprite();
 	if (type == ss)
-	{
-		sp->idle_anim = new_anim("resources/sprites/ss/idle/X.xpm");
-		sp->die_anime = new_anim("resources/sprites/ss/die/X.xpm");
-		if (sp->idle_anim == NULL || sp->die_anime == NULL)
-			return (ft_lstclear(&new_node, &del_sprite), -1);
-	}
-	play_anim(sp, sp->idle_anim);
-	ft_lstadd_front(&cub3d()->sprite_lst, new_node);
+		node->data = new_ss_sprite();
+	if (node->data == NULL)
+		return (free(node), -1);
+	((t_sprite *)node->data)->pos = pos;
+	ft_lstadd_front(lst, node);
 	return (0);
 }
 
-void	play_anim(t_sprite *sp, t_anim *anim)
+t_bool	is_sp_closer(t_sprite *a, t_sprite *b, t_play *p)
 {
-	sp->curr_anim = anim;
-	reset_anim(sp->curr_anim);
+	return ((((p->pos.x - a->pos.x) * (p->pos.x - a->pos.x)
+				+ (p->pos.y - a->pos.y) * (p->pos.y - a->pos.y))
+			>= ((p->pos.x - b->pos.x) * (p->pos.x - b->pos.x)
+				+ (p->pos.y - b->pos.y) * (p->pos.y - b->pos.y)))
+	);
 }
 
-void	sort_sprites(void)
+void	play_idle_anim(t_sprite *sp, t_anims *anims)
 {
-	lst_qcksort(cub3d()->sprite_lst,
-		(t_bool (*)(void *, void *)) & is_sprite_sorted);
+	if (sp->type == barrel)
+		sp->curr_anim = anims->barrel[idle];
+	if (sp->type == ss)
+		sp->curr_anim = anims->ss[idle];
 }
 
-void	update_sprites(void)
+void	play_anim(t_sprite *sp, t_anim_type type, t_anims *anims)
 {
-	ft_lstiter(cub3d()->sprite_lst, &update_one_sprite);
+	if (sp->type == barrel)
+		sp->curr_anim = anims->barrel[type];
+	if (sp->type == ss)
+		sp->curr_anim = anims->ss[type];
 }
 
-void	free_sprites(void)
+void	sp_take_damage(t_sprite *sp, int amount, t_anims *anims)
 {
-	ft_lstclear(&cub3d()->sprite_lst, &del_sprite);
+	if (sp->type == barrel || sp->hp <= 0)
+		return ;
+	sp->hp -= amount;
+	if (sp->hp <= 0)
+		play_anim(sp, die, anims);
 }
