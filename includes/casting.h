@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:26:50 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/19 12:09:18 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:45:47 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_dda_data
 int			setup_casting(t_dda **dest);
 void		run_dda(t_dda *res, t_play *player, t_cubf *cubf);
 t_sprite	*dda_sprite(t_play *player, t_cub3d *cub);
-void		clean_casting(t_dda *dda);
 
 t_dda_data	make_dda_data(t_vec2f start, t_vec2f dir);
 t_bool		wall_hit(t_rres *res, t_dda_data *ddata, void *data);
@@ -61,5 +60,6 @@ t_bool		sprite_hit(t_rres *res, t_dda_data *ddata, void *data);
 void		set_tile_step(t_dda_data *dest);
 void		set_length_step(t_dda_data *dest);
 void		set_start_length(t_dda_data *dest);
+t_bool		is_sprite_behind(t_sprite *sp, t_play *p);
 
 #endif // CASTING_H

@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:11:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/19 11:31:58 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:24:57 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,19 @@ int	load_map(t_cubf *cubf, int fd)
 	{
 		if (load_line(cubf, line, &line_lst) != 0)
 			return (free(line), ft_lstclear(&line_lst, &free_wrap),
-				ft_lstclear(&cubf->sp_lst, &free_wrap), -1);
+				ft_lstclear(&cubf->sp_lst, (t_vf)free_sprite), -1);
 		line = get_next_line(fd);
 		if (line != NULL && is_empty_str(line) && is_file_over(fd) == false)
 			return (free(line), ft_lstclear(&line_lst, &free_wrap),
-				ft_lstclear(&cubf->sp_lst, &free_wrap),
+				ft_lstclear(&cubf->sp_lst, (t_vf)free_sprite),
 				set_error(PARSING_ERROR), -1);
 	}
 	if (cubf->p_srt_dir == 0)
 		return (ft_lstclear(&line_lst, &free_wrap), ft_lstclear(&cubf->sp_lst,
-				&free_wrap), set_error(NO_P_ERROR), -1);
+				(t_vf)free_sprite), set_error(NO_P_ERROR), -1);
 	if (convert_to_tiles(cubf, &line_lst) != 0)
 		return (ft_lstclear(&line_lst, &free_wrap), ft_lstclear(&cubf->sp_lst,
-				&free_wrap), -1);
+				(t_vf)free_sprite), -1);
 	return (0);
 }
 

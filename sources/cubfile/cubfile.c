@@ -6,13 +6,14 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:39:33 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/18 15:23:44 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:43:40 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "cubfile.h"
 #include "error.h"
+#include "sprite.h"
 
 int	parse_cubfile(t_cubf **dest, char *file)
 {
@@ -44,6 +45,9 @@ void	clean_cubfile(t_cubf *cubf)
 {
 	int	i;
 
+	if (cubf == NULL)
+		return ;
+	ft_lstclear(&cubf->sp_lst, (t_vf)free_sprite);
 	free_cubf_textures(cubf);
 	i = 0;
 	while (cubf->map != NULL && i < cubf->m_size.y)

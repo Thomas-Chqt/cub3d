@@ -6,12 +6,13 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 12:03:24 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/19 12:03:47 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:47:37 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "casting.h"
+#include "player.h"
 
 void	set_tile_step(t_dda_data *dest)
 {
@@ -47,4 +48,16 @@ void	set_start_length(t_dda_data *dest)
 	else
 		dest->curr_length.y
 			= (dest->curr_tile.y + 1.0 - dest->start.y) * dest->length_step.y;
+}
+
+t_bool	is_sprite_behind(t_sprite *sp, t_play *p)
+{
+	t_vec2f	relative_pos;
+	float	inv_det;
+
+	relative_pos = sub_vf2vf2(sp->pos, p->pos);
+	inv_det = 1.0 / (p->plane.x * p->dir.y
+			- p->dir.x * p->plane.y);
+	return ((inv_det * (-p->plane.y * relative_pos.x
+				+ p->plane.x * relative_pos.y)) <= 0);
 }

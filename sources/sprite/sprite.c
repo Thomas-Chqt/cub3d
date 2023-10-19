@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 16:59:08 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/19 11:27:34 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:18:37 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	setup_sprites(t_cubf *cubf, t_list **anim_lst)
 
 void	free_sprite(t_sprite *sp)
 {
+	if (sp == NULL)
+		return ;
 	del_anim(&sp->idle_anim);
 	del_anim(&sp->die_anim);
 	free(sp);

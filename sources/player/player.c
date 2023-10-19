@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:12:45 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/18 16:52:55 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:34:24 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "player.h"
 #include "error.h"
 #include "cubfile.h"
+#include "hud.h"
 
 int	setup_player(t_play **dest, t_cubf *cubf)
 {
@@ -26,6 +27,8 @@ int	setup_player(t_play **dest, t_cubf *cubf)
 	play->dir = char_to_dir_vec(cubf->p_srt_dir);
 	play->plane = char_to_plane_vec(cubf->p_srt_dir);
 	play->hitb = (t_vec2f){HIT_BOX_SIZE, HIT_BOX_SIZE};
+	play->reload_timer = new_timer(1.1f);
+	play->reload_timer.n = play->reload_timer.target;
 	*dest = play;
 	return (0);
 }
@@ -58,7 +61,13 @@ void	protate(t_play *player, float rad)
 	player->plane = rot_vf2(player->plane, rad);
 }
 
-void	clean_player(t_play *player)
+void	pshoot(t_play *player, t_sprite *target, t_hud *hud)
 {
-	free(player);
+	if (player->reload_timer.n < player->reload_timer.target)
+		return ;
+	hud->curr_anim = hud->shoot_anim;
+	reset_timer(&player->reload_timer);
+	if (target == NULL)
+		return ;
+	sp_take_damage(target, 100);
 }

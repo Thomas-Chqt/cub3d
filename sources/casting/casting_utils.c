@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:32:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/19 12:11:25 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:46:35 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ t_bool	sprite_hit(t_rres *res, t_dda_data *ddata, void *data)
 	while (curr != NULL)
 	{
 		if (vf2tovi2(((t_sprite *)curr->data)->pos).x
-			== ddata->curr_tile.x
-			&& vf2tovi2(((t_sprite *)curr->data)->pos).y
-			== ddata->curr_tile.y && ((t_sprite *)curr->data)->hp > 0)
+			== ddata->curr_tile.x && vf2tovi2(((t_sprite *)curr->data)->pos).y
+			== ddata->curr_tile.y && ((t_sprite *)curr->data)->hp > 0
+			&& is_sprite_behind((t_sprite *)curr->data, cub->player) == false)
 		{
 			res->hit_sprite = curr->data;
 			return (true);

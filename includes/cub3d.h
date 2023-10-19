@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/19 11:05:22 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:58:20 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef void			(*t_vvf)(void *, void *);
 typedef struct s_cubf	t_cubf;
 typedef struct s_play	t_play;
 typedef struct s_dda	t_dda;
-typedef struct s_anims	t_anims;
+typedef struct s_hud	t_hud;
 
 typedef struct s_cub3d
 {
@@ -42,6 +42,7 @@ typedef struct s_cub3d
 	t_play	*player;
 	t_dda	*dda_result;
 	t_list	*sprite_list;
+	t_hud	*hud;
 
 	t_vec2i	prev_mpos;
 	t_bool	is_m_block;

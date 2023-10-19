@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:31:51 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/19 12:08:51 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:44:48 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,4 @@ static void	cast_ray(t_rres *res, t_dda_data ddata, t_hit_func hit, void *d)
 	}
 	res->wall_x -= floorf(res->wall_x);
 	res->dir = ddata.dir;
-}
-
-void	clean_casting(t_dda *dda)
-{
-	free(dda);
 }
