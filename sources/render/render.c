@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:41:00 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/19 14:20:20 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:20:33 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "render.h"
 #include "cubfile.h"
 #include "hud.h"
+#include "player.h"
+#include "minimap.h"
 
 void	render_walls(t_dda *dda_res, t_cubf *cubf)
 {
@@ -83,4 +85,33 @@ void	render_hud(t_hud *hud)
 		x++;
 		img_x += (float)ctx_size(hud->img).x / HUD_WIDTH;
 	}
+}
+
+void	render_minmap(t_mmap *mmap, t_cubf *cf, t_play *p)
+{
+	t_vec2i	curr;
+	t_vec2i	curr_tile;
+
+	curr.y = -MMAP_TS * (p->pos.y - (int)p->pos.y);
+	curr_tile.y = (int)p->pos.y - ((MMAP_HEIGHT / 2) / MMAP_TS);
+	while (curr.y < MMAP_HEIGHT)
+	{
+		curr.x = -MMAP_TS * (p->pos.x - (int)p->pos.x);
+		curr_tile.x = (int)p->pos.x - ((MMAP_WIDTH / 2) / MMAP_TS);
+		while (curr.x < MMAP_WIDTH)
+		{
+			if (curr_tile.y < 0 || curr_tile.x < 0
+				|| curr_tile.y >= cf->m_size.y || curr_tile.x >= cf->m_size.x
+				|| cf->map[curr_tile.y][curr_tile.x] >= wall)
+				draw_rect(mmap->ctx, curr, (t_vec2i){MMAP_TS, MMAP_TS}, BLACK);
+			else
+				draw_rect(mmap->ctx, curr, (t_vec2i){MMAP_TS, MMAP_TS}, WHITE);
+			curr.x += MMAP_TS;
+			curr_tile.x++;
+		}
+		curr.y += MMAP_TS;
+		curr_tile.y++;
+	}
+	put_context(mmap->ctx, (t_vec2i){MMAP_POS_X, MMAP_POS_Y});
+	put_context(mmap->overlay_ctx, (t_vec2i){MMAP_POS_X, MMAP_POS_Y});
 }
