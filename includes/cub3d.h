@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/18 19:08:19 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/19 11:05:22 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct s_cub3d
 	t_play	*player;
 	t_dda	*dda_result;
 	t_list	*sprite_list;
-	t_anims	*animations;
 
 	t_vec2i	prev_mpos;
 	t_bool	is_m_block;

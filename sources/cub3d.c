@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:44:14 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/18 20:44:25 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:10:25 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include "render.h"
 #include "inputs.h"
 #include "sprite.h"
-#include "animation.h"
 
 int	setup(t_cub3d *cub, int argc, char *argv[])
 {
@@ -31,15 +30,11 @@ int	setup(t_cub3d *cub, int argc, char *argv[])
 		return (clean(cub), -1);
 	if (parse_cubfile(&cub->cubfile, argv[1]) != 0)
 		return (clean(cub), -1);
-	cub->sprite_list = cub->cubfile->sp_lst;
-	cub->cubfile->sp_lst = NULL;
 	if (setup_player(&cub->player, cub->cubfile) != 0)
 		return (clean(cub), -1);
 	if (setup_casting(&cub->dda_result) != 0)
 		return (clean(cub), -1);
-	if (setup_anims(&cub->animations) != 0)
-		return (clean(cub), -1);
-	lst_iterdata(cub->sprite_list, (t_vvf) & play_idle_anim, cub->animations);
+	setup_sprites(cub->cubfile, &cub->sprite_list);
 	return (0);
 }
 
@@ -47,16 +42,15 @@ void	loop(t_cub3d *cub)
 {
 	input_loop(cub);
 	mouse_loop(cub);
-	run_dda(cub->dda_result, cub->player, cub);
+	run_dda(cub->dda_result, cub->player, cub->cubfile);
 	render_walls(cub->dda_result, cub->cubfile);
-	lst_qcksort_data(cub->sprite_list, (t_sf) & is_sp_closer, cub->player);
-	lst_iterdata(cub->sprite_list, (t_vvf) & render_sprite, cub);
+	lst_qcksort_data(cub->sprite_list, (t_sf)is_sp_closer, cub->player);
+	lst_iterdata(cub->sprite_list, (t_vvf)render_sprite, cub);
 }
 
 void	clean(t_cub3d *cub)
 {
-	clean_anims(cub->animations);
-	ft_lstclear(&cub->sprite_list, free_wrap);
+	ft_lstclear(&cub->sprite_list, (t_vf)free_sprite);
 	clean_casting(cub->dda_result);
 	clean_player(cub->player);
 	clean_cubfile(cub->cubfile);

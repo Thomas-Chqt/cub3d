@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:11:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/18 20:11:56 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/19 11:31:58 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int	process_char(t_cubf *cubf, char src, char *dest, t_vec2i pos)
 	}
 	if (src == 'X')
 	{
-		if (add_new_sprite(&cubf->sp_lst, ss,
-				(t_vec2f){(float)pos.x + 0.5f, (float)pos.y + 0.5f}))
+		if (add_new_ss_sprite(&cubf->sp_lst,
+				(t_vec2f){(float)pos.x + 0.5f, (float)pos.y + 0.5f}) != 0)
 			return (-1);
 		return (*dest = '0', 0);
 	}

@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:02:09 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/18 21:00:02 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:10:04 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	on_l_click(t_cub3d *cub)
 {
 	t_sprite	*hit;
 
-	hit = dda_one_ray(cub->player->pos, cub->player->dir, cub);
+	hit = dda_sprite(cub->player, cub);
 	if (hit == NULL)
 		return ;
-	sp_take_damage(hit, 100, cub->animations);
+	sp_take_damage(hit, 100);
 }
