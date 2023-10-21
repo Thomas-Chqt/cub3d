@@ -6,13 +6,11 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:58:47 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/18 15:09:02 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/21 18:54:57 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "cubfile.h"
-#include "error.h"
+#include "cubfile_internal.h"
 
 t_bool	is_file_over(int fd)
 {
@@ -51,4 +49,28 @@ t_mtile	**calloc_tiles(t_vec2i size)
 		free(res[i--]);
 	free(res);
 	return (NULL);
+}
+
+void	free_all(char *line, t_list **line_lst, t_cubf_map *map)
+{
+	free(line);
+	ft_lstclear(line_lst, &free_wrap);
+	clean_map(map);
+}
+
+t_cfent	*add_ent(t_list **list, t_vec2i pos, char id)
+{
+	t_cfent	*ent;
+	t_list	*node;
+
+	ent = malloc(sizeof(t_cfent));
+	if (ent == NULL)
+		return (NULL);
+	ent->pos = pos;
+	ent->id = id;
+	node = ft_lstnew(ent);
+	if (node == NULL)
+		return (free(ent), NULL);
+	ft_lstadd_front(list, node);
+	return (ent);
 }

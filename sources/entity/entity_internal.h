@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite.c                                           :+:      :+:    :+:   */
+/*   entity_internal.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/15 16:59:08 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/19 13:18:37 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/21 20:22:51 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/21 20:58:44 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "sprite.h"
-#include "error.h"
-#include "cubfile.h"
+#ifndef ENTITY_INTENAL_H
+# define ENTITY_INTENAL_H
 
-void	setup_sprites(t_cubf *cubf, t_list **anim_lst)
-{
-	*anim_lst = cubf->sp_lst;
-	cubf->sp_lst = NULL;
-}
+# include "entity.h"
 
-void	free_sprite(t_sprite *sp)
+struct s_ent
 {
-	if (sp == NULL)
-		return ;
-	del_anim(&sp->idle_anim);
-	del_anim(&sp->die_anim);
-	free(sp);
-}
+	t_vec2f	pos;
+	t_vec2f	dir;
+	t_vec2f	pla;
+};
+
+t_list	make_entity_lst(t_cubf *cubf, t_list **lst, t_ent **p_ref)
+
+#endif // ENTITY_INTENAL_H

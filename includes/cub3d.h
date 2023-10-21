@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/19 16:35:41 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/21 20:36:37 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,31 +27,25 @@
 
 # define FOV	90
 
-typedef void			(*t_vf)(void *);
-typedef t_bool			(*t_sf)(void *, void *, void *);
-typedef void			(*t_vvf)(void *, void *);
+typedef void			(*t_a)(void *);
 
 typedef struct s_cubf	t_cubf;
-typedef struct s_play	t_play;
-typedef struct s_dda	t_dda;
-typedef struct s_hud	t_hud;
-typedef struct s_mmap	t_mmap;
+typedef struct s_ent	t_ent;
 
 typedef struct s_cub3d
 {
-	t_cubf	*cubfile;
-	t_play	*player;
-	t_dda	*dda_result;
-	t_list	*sprite_list;
-	t_hud	*hud;
-	t_mmap	*mmap;
+	t_cubf	*cubf;
+	t_list	*ent_lst;
+	t_ent	*p_ref;
 
-	t_vec2i	prev_mpos;
 	t_bool	is_m_block;
+	t_vec2i	prev_mpos;
+	t_ctx	*mmap_back;
+	t_ctx	*mmap_overlay;
 
 }	t_cub3d;
 
-int		setup(t_cub3d *cub, int argc, char *argv[]);
+int		setup(t_cub3d *cub, char *argv[]);
 void	loop(t_cub3d *cub);
 void	clean(t_cub3d *cub);
 

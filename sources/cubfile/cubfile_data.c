@@ -6,51 +6,63 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 21:04:03 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/18 14:45:59 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/21 18:54:32 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "cubfile.h"
-#include "error.h"
+#include "cubfile_internal.h"
 
-static int	load_texture(t_cubf *cubf, char *line);
-static int	load_color(t_cubf *cubf, char *line);
+static int	load_texture(t_cubf_data *data, char *line);
+static int	load_color(t_cubf_data *data, char *line);
 
-int	load_data(t_cubf *cubf, int fd)
+int	load_data(t_cubf_data *data, int fd)
 {
 	int		ret;
 	char	*line;
 
-	while (is_all_data_loaded(cubf) == false)
+	data->f_color = TRANSP;
+	data->c_color = TRANSP;
+	while (is_all_loaded(data) == false)
 	{
 		line = gnl_no_empty(fd);
 		if (line == NULL)
-			return (free_cubf_textures(cubf), set_error(UNEXP_EOF_ERROR), -1);
-		ret = load_texture(cubf, line);
+			return (clean_data(data), set_error(UNEXP_EOF_ERROR), -1);
+		ret = load_texture(data, line);
 		if (ret == PARSING_ERROR)
-			ret = load_color(cubf, line);
+			ret = load_color(data, line);
 		if (ret == PARSING_ERROR)
 			set_error(PARSING_ERROR);
 		free(line);
 		if (ret != 0)
-			return (free_cubf_textures(cubf), -1);
+			return (clean_data(data), -1);
 	}
 	return (0);
 }
 
-static int	load_texture(t_cubf *cubf, char *line)
+void	clean_data(t_cubf_data *data)
+{
+	free_context(data->no_tex);
+	data->no_tex = NULL;
+	free_context(data->so_tex);
+	data->so_tex = NULL;
+	free_context(data->we_tex);
+	data->we_tex = NULL;
+	free_context(data->ea_tex);
+	data->ea_tex = NULL;
+}
+
+static int	load_texture(t_cubf_data *data, char *line)
 {
 	t_ctx	**dest;
 
 	if (ft_strncmp(line, "NO", 2) == 0)
-		dest = &(cubf->no_tex);
+		dest = &(data->no_tex);
 	else if (ft_strncmp(line, "SO", 2) == 0)
-		dest = &(cubf->so_tex);
+		dest = &(data->so_tex);
 	else if (ft_strncmp(line, "WE", 2) == 0)
-		dest = &(cubf->we_tex);
+		dest = &(data->we_tex);
 	else if (ft_strncmp(line, "EA", 2) == 0)
-		dest = &(cubf->ea_tex);
+		dest = &(data->ea_tex);
 	else
 		return (PARSING_ERROR);
 	if (is_whitespace(line[2]) == false)
@@ -64,15 +76,15 @@ static int	load_texture(t_cubf *cubf, char *line)
 	return (0);
 }
 
-static int	load_color(t_cubf *cubf, char *line)
+static int	load_color(t_cubf_data *data, char *line)
 {
 	t_uint32	*dest;
 	char		**parsed_comp;
 
 	if (ft_strncmp(line, "C", 1) == 0)
-		dest = &(cubf->c_color);
+		dest = &(data->c_color);
 	else if (ft_strncmp(line, "F", 1) == 0)
-		dest = &(cubf->f_color);
+		dest = &(data->f_color);
 	else
 		return (PARSING_ERROR);
 	if (is_whitespace(line[1]) == false)

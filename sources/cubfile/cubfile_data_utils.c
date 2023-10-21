@@ -6,15 +6,13 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:00:39 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/18 14:39:57 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/21 13:06:58 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "cubfile.h"
-#include "error.h"
+#include "cubfile_internal.h"
 
-t_bool	is_all_data_loaded(t_cubf *cubf)
+t_bool	is_all_loaded(t_cubf_data *cubf)
 {
 	if (cubf->no_tex == NULL)
 		return (false);
