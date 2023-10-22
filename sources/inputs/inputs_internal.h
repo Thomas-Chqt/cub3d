@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:21:06 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/21 19:24:26 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/22 14:34:19 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "inputs.h"
 # include "error.h"
+# include "entity.h"
 
 void	on_cmd_down(t_cub3d *cub);
 void	on_cmd_up(t_cub3d *cub);

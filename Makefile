@@ -6,7 +6,7 @@
 #    By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/30 14:26:53 by tchoquet          #+#    #+#              #
-#    Updated: 2023/10/16 15:04:17 by tchoquet         ###   ########.fr        #
+#    Updated: 2023/10/22 14:22:12 by tchoquet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,8 +82,6 @@ else ifeq (${TARGET_TYPE}, release)
 	@rm -rf ${NAME}
 	@echo "${NAME} deleted"
 	@make TARGET_TYPE=debug fclean
-	@rm -rf ${EXPORT_INCLUDE}
-	@echo "${EXPORT_INCLUDE} deleted"
 else
     $(error Bad TARGET_TYPE)
 endif

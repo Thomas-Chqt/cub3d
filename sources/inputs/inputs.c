@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:59:03 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/21 21:33:54 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/22 15:14:24 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,21 @@ void	handle_inputs(t_cub3d *cub)
 	while ((poll_key(&key)))
 	{
 		if (key == W_KEY)
-			;
+			mov_ent(cub->cubf, cub->p_ref,
+				mul_vf2f(ent_dir(cub->p_ref), 0.1));
 		if (key == S_KEY)
-			;
+			mov_ent(cub->cubf, cub->p_ref,
+				mul_vf2f(ent_dir(cub->p_ref), -0.1));
 		if (key == D_KEY)
-			;
+			mov_ent(cub->cubf, cub->p_ref,
+				mul_vf2f(rot_vf2(ent_dir(cub->p_ref), M_PI / 2), 0.1));
 		if (key == A_KEY)
-			;
+			mov_ent(cub->cubf, cub->p_ref,
+				mul_vf2f(rot_vf2(ent_dir(cub->p_ref), M_PI / 2), -0.1));
 		if (key == LEFT_KEY)
-			;
+			rot_ent(cub->p_ref, -0.1);
 		if (key == RIGHT_KEY)
-			;
+			rot_ent(cub->p_ref, 0.1);
 	}
 	handle_mouse(cub);
 }

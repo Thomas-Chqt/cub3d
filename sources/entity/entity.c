@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 12:29:08 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/22 13:00:51 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/22 15:11:49 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,41 @@ int	setup_entities(t_cub3d *cub)
 		cfents = cfents->next;
 	}
 	return (0);
+}
+
+t_vec2f	ent_pos(t_ent *ent)
+{
+	return (ent->pos);
+}
+
+t_vec2f	ent_dir(t_ent *ent)
+{
+	return (ent->dir);
+}
+
+void	mov_ent(t_cubf *cubf, t_ent *ent, t_vec2f vec)
+{
+	t_vec2f	new_pos;
+
+	new_pos = add_vf2vf2(ent->pos, vec);
+	if (new_pos.x < ent->pos.x
+		&& (is_out_map(cubf, (t_vec2i){new_pos.x - ENT_HBOX / 2, ent->pos.y})
+		|| is_solid(cubf, (t_vec2i){new_pos.x - ENT_HBOX / 2, ent->pos.y})))
+		ent->pos.x = ((int)ent->pos.x) + ENT_HBOX / 2;
+	else if (is_out_map(cubf, (t_vec2i){new_pos.x + ENT_HBOX / 2, ent->pos.y})
+		|| is_solid(cubf, (t_vec2i){new_pos.x + ENT_HBOX / 2, ent->pos.y}))
+		ent->pos.x = ((int)ent->pos.x + 1) - ENT_HBOX / 2;
+	else
+		ent->pos.x = new_pos.x;
+	if (new_pos.y < ent->pos.y
+		&& (is_out_map(cubf, (t_vec2i){ent->pos.x, new_pos.y - ENT_HBOX / 2})
+		|| is_solid(cubf, (t_vec2i){ent->pos.x, new_pos.y - ENT_HBOX / 2})))
+		ent->pos.y = ((int)ent->pos.y) + ENT_HBOX / 2;
+	else if (is_out_map(cubf, (t_vec2i){ent->pos.x, new_pos.y + ENT_HBOX / 2})
+		|| is_solid(cubf, (t_vec2i){ent->pos.x, new_pos.y + ENT_HBOX / 2}))
+		ent->pos.y = ((int)ent->pos.y + 1) - ENT_HBOX / 2;
+	else
+		ent->pos.y = new_pos.y;
 }
 
 void	clean_entities(t_cub3d *cub)

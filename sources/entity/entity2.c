@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   entity_internal.h                                  :+:      :+:    :+:   */
+/*   entity2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/21 20:22:51 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/22 14:26:24 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/22 15:13:00 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/22 17:44:40 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENTITY_INTERNAL_H
-# define ENTITY_INTERNAL_H
+#include "entity_internal.h"
 
-# include "entity.h"
-# include "cubfile.h"
-# include "error.h"
-
-# define ENT_HBOX 0.2
-
-struct s_ent
+void	rot_ent(t_ent *ent, float rad)
 {
-	t_vec2f	pos;
-	t_vec2f	dir;
-	t_vec2f	pla;
-};
+	ent->dir = rot_vf2(ent->dir, rad);
+	ent->pla = rot_vf2(ent->pla, rad);
+}
 
-t_ent	*new_ent_from_cfent(t_cfent *ent);
-
-#endif // ENTITY_INTERNAL_H
+t_vec2f	ent_pla(t_ent *ent)
+{
+	return (ent->pla);
+}

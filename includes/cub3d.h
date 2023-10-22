@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/22 13:09:30 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/22 16:19:01 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,12 @@ typedef struct s_cub3d
 
 	t_bool	is_m_block;
 	t_vec2i	prev_mpos;
+
 	t_ctx	*mmap_back;
 	t_ctx	*mmap_overlay;
+	t_ctx	*wall_ctx;
+
+	float	wall_dist[WIDTH];
 
 }	t_cub3d;
 
