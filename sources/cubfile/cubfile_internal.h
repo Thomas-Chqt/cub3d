@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 12:35:25 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/21 18:49:17 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/22 12:33:39 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,6 @@ typedef struct s_cubf_data
 	t_uint32	f_color;
 
 }	t_cubf_data;
-
-typedef struct s_cubf_ent
-{
-	t_vec2i	pos;
-	char	id;
-
-}	t_cfent;
 
 typedef struct s_cubf_map
 {

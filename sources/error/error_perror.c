@@ -6,11 +6,11 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:03:20 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/17 16:51:24 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/22 12:04:37 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "error.h"
+#include "error_internal.h"
 
 static void	cub_perror2(void);
 static void	cub_perror3(void);

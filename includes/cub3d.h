@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/21 20:36:37 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/22 13:09:30 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_cub3d
 
 }	t_cub3d;
 
-int		setup(t_cub3d *cub, char *argv[]);
+int		setup(t_cub3d *cub, char *file);
 void	loop(t_cub3d *cub);
 void	clean(t_cub3d *cub);
 

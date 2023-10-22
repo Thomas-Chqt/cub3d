@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   timer.c                                            :+:      :+:    :+:   */
+/*   error_internal.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 18:46:41 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/18 19:41:07 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/22 12:00:43 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/22 13:16:41 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "timer.h"
+#ifndef ERROR_INTERNAL_H
+# define ERROR_INTERNAL_H
 
-t_timer	new_timer(float s)
-{
-	return ((t_timer){
-		.n = 0,
-		.target = s * TIMER_FPS
-	});
-}
+# include "error.h"
 
-t_bool	update_timer(t_timer *timer)
-{
-	if (++(timer->n) >= timer->target)
-		return (timer->n = timer->target, true);
-	return (false);
-}
+# define ERROR_FILES_MAX_LEN	100
 
-void	reset_timer(t_timer *timer)
+typedef struct t_cub3d_error
 {
-	timer->n = 0;
-}
+	char		cubf[ERROR_FILES_MAX_LEN];
+	char		texf[ERROR_FILES_MAX_LEN];
+	t_uint32	line;
+	t_uint32	column;
+	int			code;
+
+}	t_cuberr;
+
+t_cuberr	*cub_error(void);
+
+#endif // ERROR_INTERNAL_H

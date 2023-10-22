@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:11:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/21 18:32:10 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/22 12:10:54 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	load_line(t_cubf_map *map, char *line, t_list **line_lst)
 	{
 		if (x == INT_MAX)
 			return (set_error(LONG_LINE_ERROR), -1);
-		cub_error()->column = x + 1;
+		*cub_error_column() = x + 1;
 		if (process_char(map, line[x], line + x,
 				(t_vec2i){x, map->size.y - 1}) != 0)
 			return (-1);
@@ -77,7 +77,7 @@ static int	load_line(t_cubf_map *map, char *line, t_list **line_lst)
 	if (new_node == NULL)
 		return (set_error(MALLOC_ERROR), -1);
 	ft_lstadd_front(line_lst, new_node);
-	cub_error()->line++;
+	(*cub_error_line())++;
 	return (0);
 }
 

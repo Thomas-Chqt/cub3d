@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 21:04:03 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/21 18:54:32 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/22 12:09:12 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	load_texture(t_cubf_data *data, char *line)
 		return (set_error(PARSING_ERROR), -1);
 	if (*dest != NULL)
 		return (set_error(MULTI_TEX_ERROR), -1);
-	ft_strlcpy(cub_error()->texf, normed(line + 3), ERROR_FILES_MAX_LEN);
+	set_error_texf(normed(line + 3));
 	*dest = ctx_from_img(normed(line + 3));
 	if (*dest == NULL)
 		return (set_error(TEXF_LOAD_ERROR), -1);
