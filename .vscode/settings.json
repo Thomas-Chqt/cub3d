@@ -6,8 +6,8 @@
 	],
 	"files.exclude": {
 		"*.cub": true,
-		"cub3d": true,
-		"cub3d_debug": true,
+		"cub3D": true,
+		"cub3D_debug": true,
 		"resources": true
 	}
 }

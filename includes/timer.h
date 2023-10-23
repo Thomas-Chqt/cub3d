@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.h                                          :+:      :+:    :+:   */
+/*   timer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/21 19:35:24 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/23 11:05:46 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/23 13:01:15 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/23 13:17:56 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIMAP_H
-# define MINIMAP_H
+#ifndef TIMER_H
+# define TIMER_H
 
 # include "cub3d.h"
 
-# define MMAP_SIZE 200
-# define MMAP_POS_X 10
-# define MMAP_POS_Y 10
-# define MMAP_TSIZE 20
-# define MMAP_PSIZE 5
+# define TIMER_FPS 60
 
-int		make_mmap_overlay(t_ctx **dest);
-void	render_mmap(t_cubf *cubf, t_ent *pl);
+typedef struct s_timer
+{
+	int	n;
+	int	target;
 
-#endif // MINIMAP_H
+}	t_timer;
+
+t_timer	new_timer(float s);
+void	update_timer(t_timer *timer);
+float	timer_status(t_timer timer);
+
+#endif // TIMER_H

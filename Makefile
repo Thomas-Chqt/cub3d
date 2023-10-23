@@ -6,7 +6,7 @@
 #    By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/30 14:26:53 by tchoquet          #+#    #+#              #
-#    Updated: 2023/10/22 14:22:12 by tchoquet         ###   ########.fr        #
+#    Updated: 2023/10/23 19:20:13 by tchoquet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCS_DIR		= $(shell find ${ROOT}/sources -type d)
 INCLUDES_DIR	= $(shell find ${ROOT}/includes -type d)
 BUILD_DIR		= ${ROOT}/.build
 
-NAME_BASE		= ${ROOT}/cub3d
+NAME_BASE		= ${ROOT}/cub3D
 
 
     SRC = $(foreach dir, ${SRCS_DIR}, $(wildcard ${dir}/*.c))

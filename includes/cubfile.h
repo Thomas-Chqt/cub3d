@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:37:18 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/22 17:51:19 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/23 10:49:18 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_uint32	get_f_color(t_cubf *cubf);
 
 t_bool		is_out_map(t_cubf *cubf, t_vec2i pos);
 t_bool		is_solid(t_cubf *cubf, t_vec2i pos);
+t_bool		is_walkable(t_cubf *cubf, t_vec2i pos);
 
 void		clean_cubfile(t_cubf *cubf);
 

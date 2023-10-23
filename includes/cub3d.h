@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/22 16:19:01 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/23 11:53:25 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define FOV	90
 
 typedef void			(*t_a)(void *);
+typedef void			(*t_b)(void *, void *);
+typedef t_bool			(*t_c)(void *, void *, void *);
 
 typedef struct s_cubf	t_cubf;
 typedef struct s_ent	t_ent;

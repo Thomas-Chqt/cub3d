@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:59:03 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/22 15:14:24 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/23 19:23:03 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ static void	handle_mouse(t_cub3d *cub)
 		.x = WIDTH / 2,
 		.y = HEIGHT / 2
 	});
-	(void)dx;
+	rot_ent(cub->p_ref, 0.001 * dx);
 	cub->prev_mpos = mouse_pos();
 }

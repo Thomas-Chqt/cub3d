@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 16:16:41 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/22 19:36:06 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/23 11:08:46 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,27 @@
 
 static void	cast_wall_ray(t_wray_res *res, t_dda_data ddata, t_cubf *cub);
 
-void	draw_walls(t_ctx *ctx, t_ent *pl, t_cubf *cubf, float *dist_ret)
+void	render_walls(t_ent *pl, t_cubf *cubf, float *dist_ret)
 {
 	t_wray_res	res;
-	float		tmp;
-	t_vec2f		dir;
+	t_vec2f		ray_dir;
 	int			x;
 
 	x = 0;
 	while (x < WIDTH)
 	{
-		tmp = 2 * (float)x / (float)WIDTH - 1;
-		dir = add_vf2vf2(ent_dir(pl), mul_vf2f(ent_pla(pl), tmp));
-		cast_wall_ray(&res, make_dda_data(ent_pos(pl), dir, cubf), cubf);
+		ray_dir = add_vf2vf2(ent_dir(pl), mul_vf2f(ent_pla(pl),
+					2 * (float)x / (float)WIDTH - 1));
+		cast_wall_ray(&res, make_dda_data(ent_pos(pl), ray_dir, cubf), cubf);
 		if (HEIGHT / 2 - (int)(HEIGHT / res.len) / 2 > 0)
-			draw_line(ctx, (t_vec2i){x, 0},
+			draw_line(back_ctx(), (t_vec2i){x, 0},
 				(t_vec2i){x, HEIGHT / 2 - (int)(HEIGHT / res.len) / 2},
 				get_c_color(cubf));
-		draw_vstripe(ctx, res.vstripe,
+		draw_vstripe(back_ctx(), res.vstripe,
 			(t_vec2i){x, HEIGHT / 2 - (int)(HEIGHT / res.len) / 2},
 			(t_vec2i){x, HEIGHT / 2 + (int)(HEIGHT / res.len) / 2});
 		if (HEIGHT / 2 + (int)(HEIGHT / res.len) / 2 < HEIGHT)
-			draw_line(ctx,
+			draw_line(back_ctx(),
 				(t_vec2i){x, HEIGHT / 2 + (int)(HEIGHT / res.len) / 2},
 				(t_vec2i){x, HEIGHT}, get_f_color(cubf));
 		dist_ret[x] = res.len;

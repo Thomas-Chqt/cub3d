@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.h                                          :+:      :+:    :+:   */
+/*   entity_hud.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/21 19:35:24 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/23 11:05:46 by tchoquet         ###   ########.fr       */
+/*   Created: 2023/10/23 19:45:22 by tchoquet          #+#    #+#             */
+/*   Updated: 2023/10/23 19:54:24 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIMAP_H
-# define MINIMAP_H
+#include "entity_internal.h"
 
-# include "cub3d.h"
+void	render_hud(t_ent *player)
+{
+	float	img_x;
+	int		x;
 
-# define MMAP_SIZE 200
-# define MMAP_POS_X 10
-# define MMAP_POS_Y 10
-# define MMAP_TSIZE 20
-# define MMAP_PSIZE 5
-
-int		make_mmap_overlay(t_ctx **dest);
-void	render_mmap(t_cubf *cubf, t_ent *pl);
-
-#endif // MINIMAP_H
+	img_x = 0;
+	x = WIDTH / 2 - HUD_SIZE_X / 2;
+	while (x < WIDTH / 2 + HUD_SIZE_X / 2)
+	{
+		draw_vstripe(
+			back_ctx(),
+			ctx_vstripe(player->img, (int)img_x),
+			(t_vec2i){x, HEIGHT - HUD_SIZE_Y},
+			(t_vec2i){x, HEIGHT});
+		x++;
+		img_x += (float)ctx_size(player->img).x / HUD_SIZE_X;
+	}
+}
