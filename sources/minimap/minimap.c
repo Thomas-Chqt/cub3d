@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 19:35:12 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/23 13:28:13 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:09:03 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	render_mmap(t_cubf *cubf, t_ent *pl)
 			curr_map = add_vf2vf2(ent_pos(pl), (t_vec2f){
 					((float)curr.x - (MMAP_SIZE / 2)) / MMAP_TSIZE,
 					((float)curr.y - (MMAP_SIZE / 2)) / MMAP_TSIZE});
-			if (is_walkable(cubf, vf2tovi2(curr_map)))
+			if (get_mtile(cubf, vf2tovi2(curr_map)) < 0)
 				draw_pixel(back_ctx(), (t_vec2i){
 					curr.x + MMAP_POS_X, curr.y + MMAP_POS_Y}, WHITE);
 			else

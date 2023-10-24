@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 16:16:55 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/24 13:30:21 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 19:23:58 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ typedef struct s_dda_data
 
 	t_ctx	*v_tex;
 	t_ctx	*h_tex;
+	t_ctx	*d_tex;
 
 	t_ctx	*c_tex;
 
+	int		hit_side;
 	float	wall_x;
 
 	t_ent	*ent_src;
@@ -54,6 +56,7 @@ typedef struct s_dda_data
 }	t_dda_data;
 
 t_dda_data	make_dda_data(t_vec2f srt, t_vec2f dir, t_cubf *cubf);
+t_bool		is_wall_hit(t_wray_res *res, t_dda_data *da, t_cubf *cubf);
 t_bool		is_ent_hit(t_eray_res *res, t_dda_data *da, t_list *ents);
 
 #endif // DDA_INTERNAL_H

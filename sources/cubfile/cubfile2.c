@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 17:34:41 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/23 10:50:24 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:10:20 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ t_ctx	*get_tex(t_cubf *cubf, t_side side)
 	return (NULL);
 }
 
+t_ctx	*get_do_tex(t_cubf *cubf)
+{
+	return (cubf->data.do_tex);
+}
+
 t_uint32	get_c_color(t_cubf *cubf)
 {
 	return (cubf->data.c_color);
@@ -33,9 +38,4 @@ t_uint32	get_c_color(t_cubf *cubf)
 t_uint32	get_f_color(t_cubf *cubf)
 {
 	return (cubf->data.f_color);
-}
-
-t_bool	is_walkable(t_cubf *cubf, t_vec2i pos)
-{
-	return (!is_solid(cubf, pos) && !is_out_map(cubf, pos));
 }

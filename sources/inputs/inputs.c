@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:59:03 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/23 19:23:03 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:00:07 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	setup_inputs(t_cub3d *cub)
 	if (add_event(CMD_L_KEY, ON_KEYUP, (t_a)on_cmd_up, cub) != 0)
 		return (set_error(MALLOC_ERROR), -1);
 	if (add_event(L_CLICK, ON_KEYDOWN, (t_a)on_l_click, cub) != 0)
+		return (set_error(MALLOC_ERROR), -1);
+	if (add_event(F_KEY, ON_KEYDOWN, (t_a)on_f_down, cub) != 0)
 		return (set_error(MALLOC_ERROR), -1);
 	hide_mouse();
 	cub->is_m_block = true;

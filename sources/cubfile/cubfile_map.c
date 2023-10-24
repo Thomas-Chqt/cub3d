@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 12:11:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/22 12:10:54 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 15:56:33 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static int	load_line(t_cubf_map *map, char *line, t_list **line_lst)
 
 static int	process_char(t_cubf_map *map, char src, char *dest, t_vec2i pos)
 {
-	if (ft_strchr(" 10", src) != NULL)
+	if (ft_strchr(" 10-|", src) != NULL)
 		return (*dest = src, 0);
 	if (ft_strchr("NSEW", src) != NULL)
 	{
@@ -122,6 +122,8 @@ static int	convert_to_tiles(t_cubf_map *map, t_list **line_lst)
 				map->tiles[curr.y - 1][curr.x] = empty;
 			if (((char *)node->data)[curr.x] == '1')
 				map->tiles[curr.y - 1][curr.x] = wall;
+			if (ft_strchr("-|", ((char *)node->data)[curr.x]) != NULL)
+				map->tiles[curr.y - 1][curr.x] = close_door;
 			curr.x++;
 		}
 		ft_lstclear(&node, &free_wrap);

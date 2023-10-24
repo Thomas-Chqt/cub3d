@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 21:04:03 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/22 12:09:12 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:08:56 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ int	load_data(t_cubf_data *data, int fd)
 		if (ret != 0)
 			return (clean_data(data), -1);
 	}
+	set_error_texf("resources/textures/door.xpm");
+	data->do_tex = ctx_from_img("resources/textures/door.xpm");
+	if (data->do_tex == NULL)
+		return (clean_data(data), set_error(ANIM_LOAD_ERROR), -1);
 	return (0);
 }
 
@@ -49,6 +53,8 @@ void	clean_data(t_cubf_data *data)
 	data->we_tex = NULL;
 	free_context(data->ea_tex);
 	data->ea_tex = NULL;
+	free_context(data->do_tex);
+	data->do_tex = NULL;
 }
 
 static int	load_texture(t_cubf_data *data, char *line)

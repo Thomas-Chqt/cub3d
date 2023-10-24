@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:02:09 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/24 13:44:29 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:06:39 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,15 @@ void	on_cmd_up(t_cub3d *cub)
 void	on_l_click(t_cub3d *cub)
 {
 	ent_shoot(cub->p_ref, cub->ent_lst, cub->cubf);
+}
+
+void	on_f_down(t_cub3d *cub)
+{
+	t_vec2i	door_pos;
+
+	door_pos = vf2tovi2(add_vf2vf2(ent_pos(cub->p_ref), ent_dir(cub->p_ref)));
+	if (door_pos.x == (int)ent_pos(cub->p_ref).x
+		&& door_pos.y == (int)ent_pos(cub->p_ref).y)
+		return ;
+	toggle_door(cub->cubf, door_pos);
 }

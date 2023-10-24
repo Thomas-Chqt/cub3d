@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 16:57:31 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/24 13:31:19 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 19:52:27 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,26 @@ t_dda_data	make_dda_data(t_vec2f srt, t_vec2f dir, t_cubf *cubf)
 	{
 		ddata.h_tex = get_tex(cubf, no / (1 + (dir.y > 0)));
 		ddata.v_tex = get_tex(cubf, we / (1 + (dir.x > 0)));
+		ddata.d_tex = get_do_tex(cubf);
 	}
 	return (ddata);
+}
+
+t_bool	is_wall_hit(t_wray_res *res, t_dda_data *da, t_cubf *cubf)
+{
+	t_mtile	tile;
+
+	(void)res;
+	tile = get_mtile(cubf, da->tcurr);
+	if (tile < 0)
+		return (false);
+	if (tile == close_door)
+		da->c_tex = da->d_tex;
+	else if (da->hit_side == 1)
+		da->c_tex = da->v_tex;
+	else
+		da->c_tex = da->h_tex;
+	return (true);
 }
 
 t_bool	is_ent_hit(t_eray_res *res, t_dda_data *da, t_list *ents)

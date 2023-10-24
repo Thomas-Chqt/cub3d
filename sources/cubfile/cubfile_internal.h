@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 12:35:25 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/22 16:52:32 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:05:48 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 # include "cubfile.h"
 # include "error.h"
 
-typedef enum e_map_tile { empty = -1, wall = 1 }	t_mtile;
-
 typedef struct s_cubf_data
 {
 	t_ctx		*no_tex;
 	t_ctx		*so_tex;
 	t_ctx		*we_tex;
 	t_ctx		*ea_tex;
+
+	t_ctx		*do_tex;
 
 	t_uint32	c_color;
 	t_uint32	f_color;
