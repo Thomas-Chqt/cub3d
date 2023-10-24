@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/24 14:24:04 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:46:18 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define FOV	90
 
 # define PLAYER_AKT_SPEED 1
-# define ENEMY_AKT_SPEED 0.5
+# define ENEMY_REATION_TIME 0.5
 
 # define PLAYER_DMG	100
 # define ENEMY_DMG	30

@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 12:36:50 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/24 14:14:22 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:36:56 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	fill_setup_data(t_ent *ent, char id)
 		ent->hp = 100;
 		ent->dmg = ENEMY_DMG;
 		ent->cooldown = new_timer(0);
-		ent->reaction = new_timer(ENEMY_AKT_SPEED);
+		ent->reaction = new_timer(ENEMY_REATION_TIME);
 	}
 	ent->curr_anim = ent->idle_anim;
 }
