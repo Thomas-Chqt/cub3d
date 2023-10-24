@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:02:09 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/24 20:06:39 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:27:58 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	on_cmd_up(t_cub3d *cub)
 
 void	on_l_click(t_cub3d *cub)
 {
-	ent_shoot(cub->p_ref, cub->ent_lst, cub->cubf);
+	ent_shoot(cub->p_ref, cub->ent_lst, cub);
 }
 
 void	on_f_down(t_cub3d *cub)

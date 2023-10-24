@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:44:14 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/24 15:51:46 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:26:01 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,6 @@ int	setup(t_cub3d *cub, char *file)
 
 void	loop(t_cub3d *cub)
 {
-	if (is_alive(cub->p_ref) == false)
-	{
-		clean(cub);
-		ft_putstr_fd("\033[0;31mGame Over\033[0m\n", STDOUT_FILENO);
-		exit(0);
-	}
-	if (is_all_dead(cub->ent_lst, cub->p_ref))
-	{
-		clean(cub);
-		ft_putstr_fd("\033[0;32mLevel Clear\033[0m\n", STDOUT_FILENO);
-		exit(0);
-	}
 	handle_inputs(cub);
 	lst_iterdata(cub->ent_lst, (t_b)entity_loop, cub);
 	render_walls(cub->p_ref, cub->cubf, cub->wall_dist);

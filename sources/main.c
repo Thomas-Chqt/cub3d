@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:30:24 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/23 18:30:35 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:24:46 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int	main(int argc, char *argv[])
 {
 	t_cub3d	cub3d;
 
-	argc = 2;
-	argv[1] = "resources/maps/test.cub";
 	cub3d = (t_cub3d){};
 	if (argc != 2 || str_cmp(ft_strrchr(argv[1], '.'), ".cub") != 0)
 		return (set_error(BAD_ARGS_ERROR), cub_perror(), 1);

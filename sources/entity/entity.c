@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 12:29:08 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/24 14:08:43 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:27:53 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	entity_loop(t_ent *ent, t_cub3d *cub)
 	}
 	else if (timer_status(ent->reaction) == 1)
 	{
-		ent_shoot(ent, cub->ent_lst, cub->cubf);
+		ent_shoot(ent, cub->ent_lst, cub);
 		ent->reaction.n = 0;
 		return ;
 	}

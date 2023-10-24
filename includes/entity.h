@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 20:19:37 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/24 14:27:23 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 20:28:32 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_bool	is_all_dead(t_list *ent_lst, t_ent *player);
 void	mov_ent(t_cubf *cubf, t_ent *ent, t_vec2f vec);
 void	rot_ent(t_ent *ent, float rad);
 
-void	ent_shoot(t_ent *ent, t_list *ent_lst, t_cubf *cubf);
-void	ent_take_dmg(t_ent *ent, int amount);
+void	ent_shoot(t_ent *ent, t_list *ent_lst, t_cub3d *cub);
+void	ent_take_dmg(t_ent *ent, int amount, t_cub3d *cub);
 
 #endif // ENTITY_H
