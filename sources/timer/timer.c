@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 13:02:33 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/23 18:32:11 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 13:55:30 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ void	update_timer(t_timer *timer)
 float	timer_status(t_timer timer)
 {
 	if (timer.target == 0)
-		return (0);
-	return (timer.n / timer.target);
+		return (1);
+	return ((float)timer.n / (float)timer.target);
 }

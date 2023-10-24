@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 14:34:23 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/23 11:53:25 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:24:04 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 # define HEIGHT	720
 
 # define FOV	90
+
+# define PLAYER_AKT_SPEED 1
+# define ENEMY_AKT_SPEED 0.5
+
+# define PLAYER_DMG	100
+# define ENEMY_DMG	30
 
 typedef void			(*t_a)(void *);
 typedef void			(*t_b)(void *, void *);

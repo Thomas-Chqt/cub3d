@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 16:16:55 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/22 18:51:57 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 13:30:21 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ typedef struct s_wall_ray_res
 
 typedef struct s_entity_ray_res
 {
+	t_ent	*hit;
+	float	len;
+
 }	t_eray_res;
 
 typedef struct s_dda_data
@@ -46,8 +49,11 @@ typedef struct s_dda_data
 
 	float	wall_x;
 
+	t_ent	*ent_src;
+
 }	t_dda_data;
 
 t_dda_data	make_dda_data(t_vec2f srt, t_vec2f dir, t_cubf *cubf);
+t_bool		is_ent_hit(t_eray_res *res, t_dda_data *da, t_list *ents);
 
 #endif // DDA_INTERNAL_H

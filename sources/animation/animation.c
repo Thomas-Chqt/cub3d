@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 13:18:18 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/23 19:47:02 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 12:53:53 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_ctx	*request_anim_frame(t_anim *anim)
 	t_ctx	*frame;
 
 	frame = anim->frames[
-		(int)((anim->frame_count - 1) * timer_status(anim->timer))
+		(int)(((float)(anim->frame_count - 1)) * timer_status(anim->timer))
 	];
 	update_timer(&anim->timer);
 	return (frame);

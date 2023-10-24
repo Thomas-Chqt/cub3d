@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 12:36:50 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/23 20:00:17 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:14:22 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ int	fill_ss_anim(t_ent *ent)
 	ent->die_anim = new_anim("resources/anims/ss_die/1.xpm", 4, 0.6);
 	if (ent->die_anim.frames[0] == NULL)
 		return (del_anim(ent->idle_anim), -1);
+	ent->shoot_anim = new_anim("resources/anims/ss_shoot/1.xpm", 2, 0.1);
+	if (ent->die_anim.frames[0] == NULL)
+		return (del_anim(ent->idle_anim), del_anim(ent->die_anim), -1);
 	return (0);
 }
 
@@ -61,7 +64,8 @@ int	fill_hud_anim(t_ent *ent)
 	ent->idle_anim = new_anim("resources/anims/hud_idle/1.xpm", 1, 0);
 	if (ent->idle_anim.frames[0] == NULL)
 		return (-1);
-	ent->shoot_anim = new_anim("resources/anims/hud_shoot/1.xpm", 8, 1);
+	ent->shoot_anim = new_anim("resources/anims/hud_shoot/1.xpm", 8,
+			1 / PLAYER_AKT_SPEED);
 	if (ent->shoot_anim.frames[0] == NULL)
 		return (del_anim(ent->idle_anim), -1);
 	return (0);
@@ -72,12 +76,16 @@ void	fill_setup_data(t_ent *ent, char id)
 	if (ft_strchr("NSEW", id) != NULL)
 	{
 		ent->hp = 100;
-		ent->dmg = 100;
+		ent->dmg = PLAYER_DMG;
+		ent->cooldown = new_timer(1 / PLAYER_AKT_SPEED);
+		ent->cooldown.n = ent->cooldown.target;
 	}
 	if (id == 'X')
 	{
 		ent->hp = 100;
-		ent->dmg = 30;
+		ent->dmg = ENEMY_DMG;
+		ent->cooldown = new_timer(0);
+		ent->reaction = new_timer(ENEMY_AKT_SPEED);
 	}
 	ent->curr_anim = ent->idle_anim;
 }

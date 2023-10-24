@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 12:29:08 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/23 20:07:51 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:08:43 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,22 @@
 int	setup_entities(t_list **lst, t_cubf *cubf, t_ent **p_ref)
 {
 	t_list	*curr;
+	t_ent	*new_ent;
 	t_list	*node;
 
 	curr = get_entities_srt_pos(cubf);
 	while (curr != NULL)
 	{
-		node = ft_lstnew(NULL);
+		if (create_ent(&new_ent, ((t_cfent *)curr->data)) != 0)
+			return (ft_lstclear(lst, (t_a)clean_entity),
+				clean_entity(*p_ref), -1);
+		if (ft_strchr("NSEW", ((t_cfent *)curr->data)->id) != NULL)
+			*p_ref = new_ent;
+		node = ft_lstnew(new_ent);
 		if (node == NULL)
 			return (ft_lstclear(lst, (t_a)clean_entity),
+				clean_entity(*p_ref), clean_entity(new_ent),
 				set_error(MALLOC_ERROR), -1);
-		if (create_ent((t_ent **)&node->data, ((t_cfent *)curr->data)) != 0)
-			return (ft_lstclear(lst, (t_a)clean_entity), free(node), -1);
-		if (ft_strchr("NSEW", ((t_cfent *)curr->data)->id) != NULL)
-			*p_ref = (t_ent *)node->data;
 		ft_lstadd_front(lst, node);
 		curr = curr->next;
 	}
@@ -44,18 +47,29 @@ void	clean_entity(t_ent *ent)
 
 void	entity_loop(t_ent *ent, t_cub3d *cub)
 {
-	t_vec2f	r_pos;
-	float	inv_det;
+	t_ent	*hit;
 
 	ent->img = request_anim_frame(&ent->curr_anim);
-	r_pos = sub_vf2vf2(ent->pos, cub->p_ref->pos);
-	inv_det = 1.0 / (cub->p_ref->pla.x * cub->p_ref->dir.y
-			- cub->p_ref->dir.x * cub->p_ref->pla.y);
-	ent->s_dep = inv_det * (-cub->p_ref->pla.y * r_pos.x
-			+ cub->p_ref->pla.x * r_pos.y);
-	ent->s_pos = (t_vec2i){(int)((WIDTH / 2) * (1 + (inv_det
-					* (cub->p_ref->dir.y * r_pos.x - cub->p_ref->dir.x
-						* r_pos.y)) / ent->s_dep)), (HEIGHT / 2)};
+	update_timer(&ent->cooldown);
+	if (ent == cub->p_ref)
+		return ;
+	update_screen_pos(ent, cub->p_ref);
+	if (is_alive(ent) == false)
+		return ;
+	if (timer_status(ent->reaction) == 0)
+	{
+		rot_to_player(ent, cub->p_ref);
+		hit = entity_ray(ent, ent->dir, cub->ent_lst, cub->cubf);
+		if (hit != cub->p_ref)
+			return ;
+	}
+	else if (timer_status(ent->reaction) == 1)
+	{
+		ent_shoot(ent, cub->ent_lst, cub->cubf);
+		ent->reaction.n = 0;
+		return ;
+	}
+	update_timer(&ent->reaction);
 }
 
 void	sort_entities(t_list *lst, t_ent *player)
@@ -70,7 +84,7 @@ void	render_entity(t_ent *ent, t_cub3d *cub)
 	float	tex_x;
 	float	tex_step;
 
-	if (ent == cub->p_ref || ent->s_dep <= 0)
+	if (ent->s_dep <= 0)
 		return ;
 	ent_sz = (t_vec2i){ft_abs((int)(HEIGHT / (ent->s_dep))),
 		ft_abs((int)(HEIGHT / (ent->s_dep)))};
