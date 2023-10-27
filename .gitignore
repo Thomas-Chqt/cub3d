@@ -1,7 +1,4 @@
 .DS_Store
 *.o
 *.a
-*.pdf
-cub3d
-cub3d_debug
-
+cub3D

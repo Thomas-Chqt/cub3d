@@ -1,13 +1,11 @@
 {
-	"C_Cpp.default.includePath": [
-		"/Users/tchoquet/Documents/Libraries/include",
-		"includes",
-		"/Users/thomas/include"
-	],
 	"files.exclude": {
-		"*.cub": true,
-		"cub3D": true,
-		"cub3D_debug": true,
-		"resources": true
-	}
+		"cub3D": true
+	},
+	"C_Cpp.default.includePath": [
+		"Graphics/includes",
+		"includes",
+		"MiniLibX",
+		"Libft/includes"
+	]
 }
