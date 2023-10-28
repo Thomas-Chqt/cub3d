@@ -6,7 +6,7 @@
 /*   By: tchoquet <tchoquet@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 18:39:33 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/10/24 19:58:40 by tchoquet         ###   ########.fr       */
+/*   Updated: 2023/10/28 13:49:18 by tchoquet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int	parse_cubfile(t_cubf **dest, char *file)
 		return (set_error(CUBF_OPEN_ERROR), -1);
 	cubf = ft_calloc(1, sizeof(t_cubf));
 	if (cubf == NULL)
-		return (set_error(MALLOC_ERROR), -1);
+		return (close(fd), set_error(MALLOC_ERROR), -1);
 	*cub_error_line() = 0;
 	if (load_data(&cubf->data, fd) != 0)
-		return (free(cubf), -1);
+		return (close(fd), free(cubf), -1);
 	if (load_map(&cubf->map, fd) != 0)
-		return (clean_data(&cubf->data), free(cubf), -1);
+		return (close(fd), clean_data(&cubf->data), free(cubf), -1);
 	close(fd);
 	if (check_map(cubf) != 0)
 		return (clean_cubfile(cubf), -1);
