@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "entity_internal.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 int	create_ent(t_ent **dest, t_cfent *cfent)
 {

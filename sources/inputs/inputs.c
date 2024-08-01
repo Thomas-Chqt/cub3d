@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "inputs_internal.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 static void	handle_mouse(t_cub3d *cub);
 

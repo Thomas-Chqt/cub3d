@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "libft_internal.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 float	torad(float angle)
 {
