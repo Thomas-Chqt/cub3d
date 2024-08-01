@@ -1,7 +1,7 @@
-NO resources/textures/redbrick.xpm
-SO resources/textures/purplestone.xpm
-WE resources/textures/nazi.xpm
-EA resources/textures/bluestone.xpm
+NO resources/textures/redbrick.png
+SO resources/textures/purplestone.png
+WE resources/textures/nazi.png
+EA resources/textures/bluestone.png
 
 F 60,62,64
 C 153,0,0

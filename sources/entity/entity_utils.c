@@ -47,13 +47,13 @@ t_bool	is_ent_closer(t_ent *a, t_ent *b, t_ent *pl)
 
 int	fill_ss_anim(t_ent *ent)
 {
-	ent->idle_anim = new_anim("resources/anims/ss_idle/1.xpm", 1, 0);
+	ent->idle_anim = new_anim("resources/anims/ss_idle/1.png", 1, 0);
 	if (ent->idle_anim.frames[0] == NULL)
 		return (-1);
-	ent->die_anim = new_anim("resources/anims/ss_die/1.xpm", 4, 0.6);
+	ent->die_anim = new_anim("resources/anims/ss_die/1.png", 4, 0.6);
 	if (ent->die_anim.frames[0] == NULL)
 		return (del_anim(ent->idle_anim), -1);
-	ent->shoot_anim = new_anim("resources/anims/ss_shoot/1.xpm", 2, 0.1);
+	ent->shoot_anim = new_anim("resources/anims/ss_shoot/1.png", 2, 0.1);
 	if (ent->die_anim.frames[0] == NULL)
 		return (del_anim(ent->idle_anim), del_anim(ent->die_anim), -1);
 	return (0);
@@ -61,10 +61,10 @@ int	fill_ss_anim(t_ent *ent)
 
 int	fill_hud_anim(t_ent *ent)
 {
-	ent->idle_anim = new_anim("resources/anims/hud_idle/1.xpm", 1, 0);
+	ent->idle_anim = new_anim("resources/anims/hud_idle/1.png", 1, 0);
 	if (ent->idle_anim.frames[0] == NULL)
 		return (-1);
-	ent->shoot_anim = new_anim("resources/anims/hud_shoot/1.xpm", 8,
+	ent->shoot_anim = new_anim("resources/anims/hud_shoot/1.png", 8,
 			1 / PLAYER_AKT_SPEED);
 	if (ent->shoot_anim.frames[0] == NULL)
 		return (del_anim(ent->idle_anim), -1);

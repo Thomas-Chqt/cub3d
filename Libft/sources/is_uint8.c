@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft_internal.h"
+#include <stdint.h>
 
 t_bool	is_uint8(char *str)
 {

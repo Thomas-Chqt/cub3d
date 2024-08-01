@@ -36,8 +36,8 @@ int	load_data(t_cubf_data *data, int fd)
 		if (ret != 0)
 			return (clean_data(data), -1);
 	}
-	set_error_texf("resources/textures/door.xpm");
-	data->do_tex = ctx_from_img("resources/textures/door.xpm");
+	set_error_texf("resources/textures/door.png");
+	data->do_tex = ctx_from_img("resources/textures/door.png");
 	if (data->do_tex == NULL)
 		return (clean_data(data), set_error(ANIM_LOAD_ERROR), -1);
 	return (0);

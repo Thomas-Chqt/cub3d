@@ -2,3 +2,6 @@
 *.o
 *.a
 cub3D
+.vscode
+build/
+build.nosync/
