@@ -1,7 +1,7 @@
-NO resources/textures/stone_N.xpm
-SO resources/textures/stone_S.xpm
-EA resources/textures/stone_E.xpm
-WE resources/textures/stone_W.xpm
+NO resources/textures/stone_N.png
+SO resources/textures/stone_S.png
+EA resources/textures/stone_E.png
+WE resources/textures/stone_W.png
 
 F 219, 29, 48
 C 23, 130, 212

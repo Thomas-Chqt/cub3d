@@ -1,7 +1,7 @@
-NO resources/textures/stone.xpm
-SO resources/textures/wood.xpm
-WE resources/textures/cobblestone.xpm
-EA resources/textures/colorstone.xpm
+NO resources/textures/stone.png
+SO resources/textures/wood.png
+WE resources/textures/cobblestone.png
+EA resources/textures/colorstone.png
 
 F 2,166,48
 C 10,241,245
