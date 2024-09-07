@@ -58,9 +58,11 @@ Keys:
 Examples
 --------
 
-![exemple1](exemple1.png)
-![exemple2](exemple2.gif)
-![exemple3](exemple3.png)
+<p align="center">
+  <img src="exemple1.png" />
+  <img src="exemple2.gif" />
+  <img src="exemple3.png" />
+</p>
 
 Libraries
 ---------
