@@ -1,11 +1,11 @@
 Cub3d
 =====
 
-The Cub3d project is a first-person shooter game that utilizes raycasting techniques, inspired from the iconic game [Wolfenstein 3D](https://en.wikipedia.org/wiki/Wolfenstein_3D). It serves as the second graphic project at 42.
+The Cub3d project is a first-person shooter game that utilizes raycasting techniques, inspired by the iconic game [Wolfenstein 3D](https://en.wikipedia.org/wiki/Wolfenstein_3D). It serves as the second graphic project at 42.
 
 In the mandatory part of this project, the objective is to read a file passed as an argument, extract the map and textures from it, and utilize this data to create a graphical representation from a first-person perspective.
 
-To get more information about the subject please refer to [Subject.pdf](Subject.pdf)
+To get more information about the subject, please refer to [Subject.pdf](Subject.pdf).
 
 The bonus part of the project introduces additional features such as wall collisions, a minimap, doors, animated sprites, and mouse handling.
 
@@ -13,7 +13,6 @@ I wanted a game that was a minimum playable so i also added a HUD to display the
 
 Support
 ------
-
 | Platform | Supported | Graphic API     |
 |----------|-----------|-----------------|
 | Windows  | YES       | OpenGL          |
@@ -22,10 +21,9 @@ Support
 
 Build
 -----
-
 The repository must be cloned instead of downloading it as a zip file in order to resolve the submodules when configuring the project with CMake. Recursive cloning is not required as everything is managed through CMake.
 
-The project can be built using CMake. Building in release if recomended for better performance.
+The project can be built using CMake. Building in release is recommended for better performance.
 
 ```sh
 mkdir build
@@ -35,7 +33,7 @@ cmake --build build --config Release
 
 | CMake Options     | Values   | Description                                            |
 |-------------------|----------|--------------------------------------------------------|
-| `CUB_FORCE_OPENGL`| ON / OFF | Use OpenGL even if metal is available (only for MacOS) |
+| `CUB_FORCE_OPENGL`| ON / OFF | Use OpenGL even if Metal is available (only for MacOS) |
 
 Usage
 -----
@@ -50,10 +48,10 @@ Keys:
 
 - `ESC`: Exit the program
 - `W` `A` `S` `D` : Move the player
-- `Left click` : shoot
-- `F` : open / close doors
+- `Left click` : Shoot
+- `F` : Open / Close doors
 - `Mouse` or `Arrows` : Rotate the view
-- `Alt` or `option` : allow mouse to exit the window
+- `Alt` or `Option` : Allow mouse to exit the window
 
 Examples
 --------
@@ -85,7 +83,8 @@ Cub3D has been my favorite project so far and built on the skills I developed du
 One of the key challenges I faced during this project was adhering to strict coding norms imposed by the school. Each function had to be limited to 25 lines, and no more than 5 variables could be used per function.  
 While implementing raycasting itself was straightforward thanks to comprehensive resources, meeting these constraints required creative solutions. I found myself using techniques to minimize the number of variables and splitting functions in ways I would not typically do in a real-world project.  
 Although these constraints sometimes resulted in less-than-optimal code, they forced me to think critically about function design and code structure, giving me insight into code efficiency under strict guidelines.
-An other unique challenges I faced in cub3D was handling time without using any time calculation functions, as per the project’s requirements. Instead, I had to manage animations and enemy cooldowns using frame counts, assuming the game would run at 60 FPS. This approach worked, but it introduced a limitation: if the game didn’t run at exactly 60 FPS, all animations and cooldowns would become slower. I included a #define to adjust the expected FPS, but this requires recompiling the game when changed, making it less flexible for different hardware setups.
+
+Another unique challenge I faced in cub3D was handling time without using any time calculation functions, as per the project’s requirements. Instead, I had to manage animations and enemy cooldowns using frame counts, assuming the game would run at 60 FPS. This approach worked, but it introduced a limitation: if the game didn’t run at exactly 60 FPS, all animations and cooldowns would become slower. I included a `#define` to adjust the expected FPS, but this requires recompiling the game when changed, making it less flexible for different hardware setups.
 
 **Performance Optimizations**
 
@@ -93,9 +92,9 @@ Beyond the DDA algorithm that is the standard for raycasting, I took additional 
 
 **Collision Handling**
 
-Given that cub3D is not a fully 3D engine, collision detection and physics were relatively straightforward. When moving the player, I only needed to check whether the new position would place them inside a wall tile or outside the map boundary. If so, I change the moving step to be the distance between the player and the fisrt wall, resulting in the player hiting the wall.  
+Given that cub3D is not a fully 3D engine, collision detection and physics were relatively straightforward. When moving the player, I only needed to check whether the new position would place them inside a wall tile or outside the map boundary. If so, I change the moving step to be the distance between the player and the first wall, resulting in the player hitting the wall.  
 This simple yet effective approach was enhanced by separating the movement checks for the X and Y coordinates, creating a natural sliding effect.  
-Additionally, interactions such as opening doors were handled by checking the tile at the position `player_pos` + `player_dir` and determining if it was a door. if it is, opening or closing it.
+Additionally, interactions such as opening doors were handled by checking the tile at the position `player_pos` + `player_dir` and determining if it was a door. If it is, opening or closing it.
 
 **Shooting Mechanics**
 
@@ -108,7 +107,7 @@ This project also introduced me to several new algorithms and mathematical techn
 References
 ----------
 
-The best ressource that i found about raycasting was the Raycasting tutorials by Lode Vandevenne on lodev.org.  
-All the tutorials can be found on [lodev.org/cgtutor](https://lodev.org/cgtutor/) in the Raycasting section, but i mostly only used the [first](https://lodev.org/cgtutor/raycasting.html) and [third](https://lodev.org/cgtutor/raycasting3.html) tutorials.  
+The best resource that I found about raycasting was the Raycasting tutorials by Lode Vandevenne on lodev.org.  
+All the tutorials can be found on [lodev.org/cgtutor](https://lodev.org/cgtutor/) in the Raycasting section, but I mostly only used the [first](https://lodev.org/cgtutor/raycasting.html) and [third](https://lodev.org/cgtutor/raycasting3.html) tutorials.  
 
-About the DDA algorithm i mostly used the video [Super Fast Ray Casting in Tiled Worlds using DDA](https://www.youtube.com/watch?v=NbSee-XM7WA) by javidx9
+About the DDA algorithm, I mostly used the video [Super Fast Ray Casting in Tiled Worlds using DDA](https://www.youtube.com/watch?v=NbSee-XM7WA) by javidx9.
