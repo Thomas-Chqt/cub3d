@@ -13,6 +13,7 @@ I wanted a game that was a minimum playable so i also added a HUD to display the
 
 Support
 ------
+
 | Platform | Supported | Graphic API     |
 |----------|-----------|-----------------|
 | Windows  | YES       | OpenGL          |
