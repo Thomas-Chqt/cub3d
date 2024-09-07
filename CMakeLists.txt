@@ -27,7 +27,7 @@ target_sources(cub3d PRIVATE ${CUB_SOURCES})
 target_include_directories(cub3d PRIVATE "Graphics/includes" "Libft/includes" "includes")
 
 if(WIN32)
-    target_include_directories(cub3d PRIVATE unistd)
+    target_include_directories(cub3d PRIVATE "unistd")
 endif()
 
 find_program(GIT_PATH git REQUIRED)
